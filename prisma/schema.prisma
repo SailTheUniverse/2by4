@@ -1,0 +1,149 @@
+// 2by4 data model
+//
+// Category tree → AttributeDefs describe the filterable specs for a category.
+// Product is the canonical item (one per real-world SKU, matched across retailers).
+// Listing is "this product at this retailer"; Offer is the current price of a
+// listing at one location (a physical store, or "online"). PricePoint keeps history.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Category {
+  id         String         @id @default(cuid())
+  slug       String         @unique
+  name       String
+  icon       String? // emoji for now; swap for real icons later
+  sortOrder  Int            @default(0)
+  parentId   String?
+  parent     Category?      @relation("CategoryTree", fields: [parentId], references: [id])
+  children   Category[]     @relation("CategoryTree")
+  attributes AttributeDef[]
+  products   Product[]
+}
+
+enum AttributeType {
+  ENUM // pick from a list, e.g. wire type: NM-B, THHN
+  NUMBER // numeric with optional unit, e.g. length: 250 ft
+  BOOLEAN // yes/no, e.g. pressure treated
+}
+
+model AttributeDef {
+  id         String        @id @default(cuid())
+  categoryId String
+  category   Category      @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  key        String // key inside Product.specs
+  label      String
+  type       AttributeType
+  unit       String? // "AWG", "ft", "in", "V"…
+  options    String[] // display order for ENUM values
+  sortOrder  Int           @default(0)
+
+  @@unique([categoryId, key])
+}
+
+model Product {
+  id           String    @id @default(cuid())
+  slug         String    @unique
+  name         String
+  brand        String
+  model        String?
+  upc          String?   @unique
+  description  String?
+  imageUrl     String?
+  categoryId   String
+  category     Category  @relation(fields: [categoryId], references: [id])
+  // Category-specific specs, keyed by AttributeDef.key: { "gauge": "12 AWG", "length": 250 }
+  specs        Json      @default("{}")
+  // What one unit is and how many are in the package, for unit-price comparison
+  // e.g. 250 ft of wire → unitLabel "ft", unitQty 250.
+  unitLabel    String    @default("each")
+  unitQty      Float     @default(1)
+  // Bulky items (lumber, sheet goods) are in-store/pickup only at most retailers
+  shippable    Boolean   @default(true)
+  // Typical market price across retailers. Drives "good deal" signals, and the
+  // mock provider generates prices around it.
+  typicalPrice Decimal   @db.Decimal(10, 2)
+  listings     Listing[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@index([categoryId])
+  @@index([brand])
+}
+
+model Retailer {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  name        String
+  websiteUrl  String
+  // Brand-ish accent used for the retailer chip in the UI
+  color       String    @default("#64748b")
+  shipsOnline Boolean   @default(true)
+  hasStores   Boolean   @default(true)
+  stores      Store[]
+  listings    Listing[]
+}
+
+model Store {
+  id         String   @id @default(cuid())
+  retailerId String
+  retailer   Retailer @relation(fields: [retailerId], references: [id], onDelete: Cascade)
+  name       String
+  city       String
+  state      String
+  zip        String
+  offers     Offer[]
+
+  @@index([retailerId])
+  @@index([zip])
+}
+
+model Listing {
+  id          String       @id @default(cuid())
+  productId   String
+  product     Product      @relation(fields: [productId], references: [id], onDelete: Cascade)
+  retailerId  String
+  retailer    Retailer     @relation(fields: [retailerId], references: [id], onDelete: Cascade)
+  retailerSku String?
+  url         String
+  offers      Offer[]
+  history     PricePoint[]
+
+  @@unique([productId, retailerId])
+  @@index([retailerId])
+}
+
+model Offer {
+  id           String   @id @default(cuid())
+  listingId    String
+  listing      Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  // "online" or a Store id. A plain string keeps the unique key non-null.
+  locationKey  String
+  storeId      String?
+  store        Store?   @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  price        Decimal  @db.Decimal(10, 2)
+  // Shipping for online offers; null when it's free or not applicable
+  shippingCost Decimal? @db.Decimal(10, 2)
+  inStock      Boolean  @default(true)
+  checkedAt    DateTime @default(now())
+
+  @@unique([listingId, locationKey])
+  @@index([storeId])
+}
+
+model PricePoint {
+  id          String   @id @default(cuid())
+  listingId   String
+  listing     Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  locationKey String
+  price       Decimal  @db.Decimal(10, 2)
+  recordedAt  DateTime @default(now())
+
+  @@index([listingId, locationKey, recordedAt])
+}

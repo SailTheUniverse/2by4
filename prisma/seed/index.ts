@@ -7,6 +7,7 @@ import { db } from "../../src/lib/db";
 import { getProvider } from "../../src/lib/providers";
 import { currentDay, quoteListing } from "../../src/lib/providers/mock";
 import { refreshPrices } from "../../src/lib/refresh";
+import { AMAZON_ASINS, MODEL_NUMBERS } from "./amazon";
 import { CATEGORIES, type CategorySeed } from "./categories";
 import { CATEGORY_CARRIERS, PRODUCTS } from "./products";
 import { METROS, RETAILERS } from "./retailers";
@@ -94,17 +95,23 @@ async function main() {
     usedSlugs.add(slug);
 
     const shippable = p.shippable ?? true;
+    const asin = AMAZON_ASINS[p.name];
+    const model = p.model ?? MODEL_NUMBERS[p.name];
     const carriers = (p.only ?? CATEGORY_CARRIERS[p.category]).filter(
-      (r) => !p.exclude?.includes(r) && (shippable || RETAILERS.find((x) => x.slug === r)!.hasStores),
+      (r) =>
+        !p.exclude?.includes(r) &&
+        (shippable || RETAILERS.find((x) => x.slug === r)!.hasStores) &&
+        // Amazon only where we've verified the real product listing
+        (r !== "amazon" || !!asin),
     );
-    const searchTerm = p.model ? `${p.brand} ${p.model}` : p.name;
+    const searchTerm = model ? `${p.brand} ${model}` : p.name;
 
     await db.product.create({
       data: {
         slug,
         name: p.name,
         brand: p.brand,
-        model: p.model,
+        model,
         categoryId: categoryIds.get(p.category)!,
         specs: p.specs,
         unitLabel: p.unit?.[0] ?? "each",
@@ -112,10 +119,11 @@ async function main() {
         shippable,
         typicalPrice: p.price,
         listings: {
-          create: carriers.map((r) => ({
-            retailerId: retailerIds.get(r)!,
-            url: RETAILERS.find((x) => x.slug === r)!.searchUrl(searchTerm),
-          })),
+          create: carriers.map((r) =>
+            r === "amazon"
+              ? { retailerId: retailerIds.get(r)!, retailerSku: asin, url: `https://www.amazon.com/dp/${asin}` }
+              : { retailerId: retailerIds.get(r)!, url: RETAILERS.find((x) => x.slug === r)!.searchUrl(searchTerm) },
+          ),
         },
       },
     });

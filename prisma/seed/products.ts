@@ -133,6 +133,7 @@ export const PRODUCTS: ProductSeed[] = [
   {
     name: "Southwire 12/2 UF-B Underground Feeder Wire with Ground, 100 ft",
     brand: "Southwire",
+    model: "13055926",
     category: "wire",
     price: 95,
     specs: { wireType: "UF-B", gauge: "12 AWG", conductors: "2 w/ ground", length: 100, material: "Copper" },
@@ -149,6 +150,7 @@ export const PRODUCTS: ProductSeed[] = [
   {
     name: "Southwire 12/2 MC Armored Cable with Ground, 250 ft",
     brand: "Southwire",
+    model: "55527901",
     category: "wire",
     price: 219,
     specs: { wireType: "MC (Armored)", gauge: "12 AWG", conductors: "2 w/ ground", length: 250, material: "Copper" },
@@ -168,17 +170,17 @@ export const PRODUCTS: ProductSeed[] = [
   { name: "Siemens 15 Amp AFCI Single-Pole Breaker", brand: "Siemens", category: "breakers", price: 44.98, specs: { panelType: "Siemens QP", amperage: 15, poles: 1, protection: "AFCI" } },
 
   // ── Outlets & Switches ──────────────────────────────────
-  { name: "Leviton 15 Amp Tamper-Resistant Duplex Outlet, White (10-Pack)", brand: "Leviton", category: "outlets-switches", price: 14.97, specs: { deviceType: "Duplex Receptacle", amperage: 15, color: "White", packSize: 10 }, unit: ["each", 10] },
-  { name: "Leviton 20 Amp Tamper-Resistant Duplex Outlet, White (10-Pack)", brand: "Leviton", category: "outlets-switches", price: 29.97, specs: { deviceType: "Duplex Receptacle", amperage: 20, color: "White", packSize: 10 }, unit: ["each", 10] },
-  { name: "Eaton 15 Amp Tamper-Resistant Duplex Outlet, White (10-Pack)", brand: "Eaton", category: "outlets-switches", price: 11.98, specs: { deviceType: "Duplex Receptacle", amperage: 15, color: "White", packSize: 10 }, unit: ["each", 10] },
+  { name: "Leviton 15 Amp Tamper-Resistant Duplex Outlet, White (10-Pack)", brand: "Leviton", model: "T5320-W", category: "outlets-switches", price: 14.97, specs: { deviceType: "Duplex Receptacle", amperage: 15, color: "White", packSize: 10 }, unit: ["each", 10] },
+  { name: "Leviton 20 Amp Tamper-Resistant Duplex Outlet, White (10-Pack)", brand: "Leviton", model: "E5825-MW", category: "outlets-switches", price: 29.97, specs: { deviceType: "Duplex Receptacle", amperage: 20, color: "White", packSize: 10 }, unit: ["each", 10] },
+  { name: "Eaton 15 Amp Tamper-Resistant Duplex Outlet, White (10-Pack)", brand: "Eaton", model: "TR270W", category: "outlets-switches", price: 11.98, specs: { deviceType: "Duplex Receptacle", amperage: 15, color: "White", packSize: 10 }, unit: ["each", 10] },
   { name: "Eaton 15 Amp Tamper-Resistant Duplex Outlet, Light Almond (10-Pack)", brand: "Eaton", category: "outlets-switches", price: 12.98, specs: { deviceType: "Duplex Receptacle", amperage: 15, color: "Light Almond", packSize: 10 }, unit: ["each", 10] },
-  { name: "Leviton 20 Amp Self-Test GFCI Outlet, White", brand: "Leviton", category: "outlets-switches", price: 22.97, specs: { deviceType: "GFCI Receptacle", amperage: 20, color: "White", packSize: 1 } },
+  { name: "Leviton 20 Amp Self-Test GFCI Outlet, White", brand: "Leviton", model: "GFTR2-W", category: "outlets-switches", price: 22.97, specs: { deviceType: "GFCI Receptacle", amperage: 20, color: "White", packSize: 1 } },
   { name: "Leviton 15 Amp Self-Test GFCI Outlet, White (4-Pack)", brand: "Leviton", category: "outlets-switches", price: 59.97, specs: { deviceType: "GFCI Receptacle", amperage: 15, color: "White", packSize: 4 }, unit: ["each", 4] },
-  { name: "Leviton 15 Amp USB Type-A/Type-C Outlet, White", brand: "Leviton", category: "outlets-switches", price: 29.97, specs: { deviceType: "USB Receptacle", amperage: 15, color: "White", packSize: 1 } },
-  { name: "Leviton 15 Amp Single-Pole Toggle Switch, White (10-Pack)", brand: "Leviton", category: "outlets-switches", price: 12.97, specs: { deviceType: "Single-Pole Switch", amperage: 15, color: "White", packSize: 10 }, unit: ["each", 10] },
-  { name: "Leviton 15 Amp 3-Way Toggle Switch, White", brand: "Leviton", category: "outlets-switches", price: 4.27, specs: { deviceType: "3-Way Switch", amperage: 15, color: "White", packSize: 1 } },
+  { name: "Leviton 15 Amp USB Type-A/Type-C Outlet, White", brand: "Leviton", model: "T5633-W", category: "outlets-switches", price: 29.97, specs: { deviceType: "USB Receptacle", amperage: 15, color: "White", packSize: 1 } },
+  { name: "Leviton 15 Amp Single-Pole Toggle Switch, White (10-Pack)", brand: "Leviton", model: "1451-2WM", category: "outlets-switches", price: 12.97, specs: { deviceType: "Single-Pole Switch", amperage: 15, color: "White", packSize: 10 }, unit: ["each", 10] },
+  { name: "Leviton 15 Amp 3-Way Toggle Switch, White", brand: "Leviton", model: "1453-2W", category: "outlets-switches", price: 4.27, specs: { deviceType: "3-Way Switch", amperage: 15, color: "White", packSize: 1 } },
   { name: "Lutron Diva LED+ Single-Pole/3-Way Dimmer, White", brand: "Lutron", category: "outlets-switches", price: 24.97, specs: { deviceType: "Dimmer", amperage: 5, color: "White", packSize: 1 } },
-  { name: "Lutron Diva LED+ Single-Pole/3-Way Dimmer, Black", brand: "Lutron", category: "outlets-switches", price: 26.97, specs: { deviceType: "Dimmer", amperage: 5, color: "Black", packSize: 1 } },
+  { name: "Lutron Diva LED+ Single-Pole/3-Way Dimmer, Black", brand: "Lutron", model: "DVCL-153P-BL", category: "outlets-switches", price: 26.97, specs: { deviceType: "Dimmer", amperage: 5, color: "Black", packSize: 1 } },
 
   // ── Dimensional Lumber ──────────────────────────────────
   lumber("2x4", 8, 3.98, "SPF", "Stud"),
@@ -209,11 +211,11 @@ export const PRODUCTS: ProductSeed[] = [
   // ── Nails & Screws (unit price per 100) ─────────────────
   { name: "Grip-Rite 16d 3-1/2 in Bright Common Nails, 5 lb (approx. 245 ct)", brand: "Grip-Rite", category: "fasteners", price: 15.98, specs: { fastenerType: "Hand-Drive Nails", length: 3.5, finish: "Bright", exterior: false }, unit: ["100 ct", 2.45] },
   { name: "Grip-Rite 16d 3-1/2 in Hot-Dip Galvanized Nails, 5 lb (approx. 230 ct)", brand: "Grip-Rite", category: "fasteners", price: 21.98, specs: { fastenerType: "Hand-Drive Nails", length: 3.5, finish: "Hot-Dip Galvanized", exterior: true }, unit: ["100 ct", 2.3] },
-  { name: "Paslode 3-1/4 in 30° Paper-Tape Framing Nails (2,000 ct)", brand: "Paslode", category: "fasteners", price: 64.98, specs: { fastenerType: "Collated Framing Nails", length: 3.25, finish: "Bright", exterior: false }, unit: ["100 ct", 20] },
+  { name: "Paslode 3-1/4 in 30° Galvanized Paper-Tape Framing Nails (2,000 ct)", brand: "Paslode", category: "fasteners", price: 64.98, specs: { fastenerType: "Collated Framing Nails", length: 3.25, finish: "Hot-Dip Galvanized", exterior: true }, unit: ["100 ct", 20] },
   { name: "Metabo HPT 3-1/4 in 21° Plastic-Strip Framing Nails (2,000 ct)", brand: "Metabo HPT", category: "fasteners", price: 59.98, specs: { fastenerType: "Collated Framing Nails", length: 3.25, finish: "Bright", exterior: false }, unit: ["100 ct", 20] },
   { name: "Simpson Strong-Tie Deck-Drive 2-1/2 in Wood Deck Screws, 5 lb (approx. 350 ct)", brand: "Simpson Strong-Tie", category: "fasteners", price: 39.98, specs: { fastenerType: "Deck Screws", length: 2.5, finish: "Coated", exterior: true }, unit: ["100 ct", 3.5] },
   { name: "Spax 2-1/2 in Exterior Multi-Material Construction Screws (120 ct)", brand: "Spax", category: "fasteners", price: 12.98, specs: { fastenerType: "Construction Screws", length: 2.5, finish: "Coated", exterior: true }, unit: ["100 ct", 1.2] },
-  { name: "GRK RSS 5/16 in x 4 in Structural Screws (50 ct)", brand: "GRK", category: "fasteners", price: 49.98, specs: { fastenerType: "Structural Screws", length: 4, finish: "Coated", exterior: true }, unit: ["100 ct", 0.5] },
+  { name: "GRK RSS 5/16 in x 4 in Structural Screws (100 ct)", brand: "GRK", category: "fasteners", price: 89.98, specs: { fastenerType: "Structural Screws", length: 4, finish: "Coated", exterior: true }, unit: ["100 ct", 1] },
   { name: "Simpson Strong-Tie Strong-Drive SDWS 3 in Timber Screws (50 ct)", brand: "Simpson Strong-Tie", category: "fasteners", price: 32.98, specs: { fastenerType: "Structural Screws", length: 3, finish: "Coated", exterior: true }, unit: ["100 ct", 0.5] },
 
   // (Plumbing lives in its own section below, organized by material system.)
@@ -242,9 +244,9 @@ export const PRODUCTS: ProductSeed[] = [
   { name: "Hercules 20V Brushless 7-1/4 in Circular Saw Kit", brand: "Hercules", category: "circular-saws", price: 159.99, specs: { power: "Cordless", bladeSize: "7-1/4 in", configuration: "Kit (1 Battery)", brushless: true }, only: ["harbor-freight"] },
 
   // ── More fasteners ──────────────────────────────────────
-  { name: "Grip-Rite #6 x 1-1/4 in Coarse-Thread Drywall Screws, 5 lb (approx. 1,500 ct)", brand: "Grip-Rite", category: "fasteners", price: 26.98, specs: { fastenerType: "Drywall Screws", length: 1.25, finish: "Coated", exterior: false }, unit: ["100 ct", 15] },
-  { name: "Grip-Rite #6 x 1-5/8 in Coarse-Thread Drywall Screws, 1 lb (approx. 220 ct)", brand: "Grip-Rite", category: "fasteners", price: 8.98, specs: { fastenerType: "Drywall Screws", length: 1.625, finish: "Coated", exterior: false }, unit: ["100 ct", 2.2] },
-  { name: "Grip-Rite 1-1/4 in Galvanized Roofing Nails, 5 lb (approx. 700 ct)", brand: "Grip-Rite", category: "fasteners", price: 17.98, specs: { fastenerType: "Roofing Nails", length: 1.25, finish: "Hot-Dip Galvanized", exterior: true }, unit: ["100 ct", 7] },
+  { name: "Grip-Rite #6 x 1-1/4 in Coarse-Thread Drywall Screws, 5 lb (approx. 1,190 ct)", brand: "Grip-Rite", category: "fasteners", price: 26.98, specs: { fastenerType: "Drywall Screws", length: 1.25, finish: "Coated", exterior: false }, unit: ["100 ct", 11.9] },
+  { name: "Grip-Rite #6 x 1-5/8 in Coarse-Thread Drywall Screws, 1 lb (approx. 190 ct)", brand: "Grip-Rite", category: "fasteners", price: 8.98, specs: { fastenerType: "Drywall Screws", length: 1.625, finish: "Coated", exterior: false }, unit: ["100 ct", 1.9] },
+  { name: "Grip-Rite 1-1/4 in Electro-Galvanized Roofing Nails, 5 lb (approx. 700 ct)", brand: "Grip-Rite", category: "fasteners", price: 17.98, specs: { fastenerType: "Roofing Nails", length: 1.25, finish: "Electro-Galvanized", exterior: true }, unit: ["100 ct", 7] },
   { name: "Bostitch 1-1/4 in Galvanized Coil Roofing Nails (7,200 ct)", brand: "Bostitch", category: "fasteners", price: 64.98, specs: { fastenerType: "Roofing Nails", length: 1.25, finish: "Hot-Dip Galvanized", exterior: true }, unit: ["100 ct", 72] },
 
   // ── Drywall ─────────────────────────────────────────────
@@ -308,14 +310,14 @@ export const PRODUCTS: ProductSeed[] = [
   { name: "Owens Corning Deck Defense Synthetic Roof Underlayment (1,000 sq ft)", brand: "Owens Corning", category: "underlayment", price: 109.98, specs: { productType: "Synthetic Underlayment", coverage: 1000 }, unit: ["sq ft", 1000] },
   { name: "GAF FeltBuster Synthetic Roofing Underlayment (1,000 sq ft)", brand: "GAF", category: "underlayment", price: 99.98, specs: { productType: "Synthetic Underlayment", coverage: 1000 }, unit: ["sq ft", 1000], exclude: ["menards"] },
   { name: "Grace Ice & Water Shield Roofing Underlayment (200 sq ft)", brand: "Grace", category: "underlayment", price: 129.98, specs: { productType: "Ice & Water Shield", coverage: 200 }, unit: ["sq ft", 200] },
-  { name: "Owens Corning WeatherLock G Ice & Water Barrier (200 sq ft)", brand: "Owens Corning", category: "underlayment", price: 99.98, specs: { productType: "Ice & Water Shield", coverage: 200 }, unit: ["sq ft", 200] },
+  { name: "Owens Corning WeatherLock Mat Ice & Water Barrier (200 sq ft)", brand: "Owens Corning", category: "underlayment", price: 99.98, specs: { productType: "Ice & Water Shield", coverage: 200 }, unit: ["sq ft", 200] },
   { name: "#15 Asphalt Saturated Roofing Felt (432 sq ft)", brand: "Mill Stock", category: "underlayment", price: 24.98, specs: { productType: "Felt #15", coverage: 432 }, unit: ["sq ft", 432], shippable: false },
   { name: "#30 Asphalt Saturated Roofing Felt (216 sq ft)", brand: "Mill Stock", category: "underlayment", price: 26.98, specs: { productType: "Felt #30", coverage: 216 }, unit: ["sq ft", 216], shippable: false },
 
   // ── Miter Saws ──────────────────────────────────────────
   { name: "DeWalt 12 in Double-Bevel Sliding Compound Miter Saw", brand: "DeWalt", model: "DWS780", category: "miter-saws", price: 599, specs: { bladeSize: "12 in", bevel: "Dual Bevel", sliding: true, power: "Corded" } },
   { name: "DeWalt 15 Amp 10 in Single-Bevel Compound Miter Saw", brand: "DeWalt", model: "DWS713", category: "miter-saws", price: 229, specs: { bladeSize: "10 in", bevel: "Single Bevel", sliding: false, power: "Corded" } },
-  { name: "Metabo HPT 15 Amp 10 in Single-Bevel Compound Miter Saw", brand: "Metabo HPT", category: "miter-saws", price: 149, specs: { bladeSize: "10 in", bevel: "Single Bevel", sliding: false, power: "Corded" } },
+  { name: "Metabo HPT 15 Amp 10 in Single-Bevel Compound Miter Saw", brand: "Metabo HPT", model: "C10FCGS", category: "miter-saws", price: 149, specs: { bladeSize: "10 in", bevel: "Single Bevel", sliding: false, power: "Corded" } },
   { name: "Milwaukee M18 FUEL 10 in Dual-Bevel Sliding Miter Saw (Tool Only)", brand: "Milwaukee", model: "2734-20", category: "miter-saws", price: 649, specs: { bladeSize: "10 in", bevel: "Dual Bevel", sliding: true, power: "Cordless" }, exclude: ["lowes"] },
   { name: "Ryobi ONE+ 18V 7-1/4 in Sliding Compound Miter Saw (Tool Only)", brand: "Ryobi", category: "miter-saws", price: 199, specs: { bladeSize: "7-1/4 in", bevel: "Single Bevel", sliding: true, power: "Cordless" }, only: ["home-depot"] },
   { name: "Kobalt 15 Amp 12 in Dual-Bevel Sliding Compound Miter Saw", brand: "Kobalt", category: "miter-saws", price: 329, specs: { bladeSize: "12 in", bevel: "Dual Bevel", sliding: true, power: "Corded" }, only: ["lowes"] },
@@ -323,45 +325,45 @@ export const PRODUCTS: ProductSeed[] = [
   { name: "Chicago Electric 10 in Compound Miter Saw", brand: "Chicago Electric", category: "miter-saws", price: 99.99, specs: { bladeSize: "10 in", bevel: "Single Bevel", sliding: false, power: "Corded" }, only: ["harbor-freight"] },
 
   // ── Hand Tools ──────────────────────────────────────────
-  { name: "Stanley PowerLock 25 ft Tape Measure", brand: "Stanley", category: "hand-tools", price: 19.98, specs: { toolType: "Tape Measure", size: "25 ft" } },
+  { name: "Stanley PowerLock 25 ft Tape Measure", brand: "Stanley", model: "33-425", category: "hand-tools", price: 19.98, specs: { toolType: "Tape Measure", size: "25 ft" } },
   { name: "Milwaukee 25 ft Compact Wide Blade Tape Measure", brand: "Milwaukee", category: "hand-tools", price: 24.97, specs: { toolType: "Tape Measure", size: "25 ft" }, exclude: ["lowes"] },
-  { name: "DeWalt 25 ft Tape Measure", brand: "DeWalt", category: "hand-tools", price: 21.98, specs: { toolType: "Tape Measure", size: "25 ft" } },
+  { name: "DeWalt 25 ft Tape Measure", brand: "DeWalt", model: "DWHT36107", category: "hand-tools", price: 21.98, specs: { toolType: "Tape Measure", size: "25 ft" } },
   { name: "Pittsburgh 25 ft Tape Measure", brand: "Pittsburgh", category: "hand-tools", price: 6.99, specs: { toolType: "Tape Measure", size: "25 ft" }, only: ["harbor-freight"] },
-  { name: "Estwing 22 oz Solid Steel Framing Hammer", brand: "Estwing", category: "hand-tools", price: 39.98, specs: { toolType: "Framing Hammer", size: "22 oz" } },
-  { name: "Estwing 16 oz Solid Steel Claw Hammer", brand: "Estwing", category: "hand-tools", price: 32.98, specs: { toolType: "Claw Hammer", size: "16 oz" } },
+  { name: "Estwing 22 oz Solid Steel Framing Hammer", brand: "Estwing", model: "E3-22SM", category: "hand-tools", price: 39.98, specs: { toolType: "Framing Hammer", size: "22 oz" } },
+  { name: "Estwing 16 oz Solid Steel Claw Hammer", brand: "Estwing", model: "E3-16C", category: "hand-tools", price: 32.98, specs: { toolType: "Claw Hammer", size: "16 oz" } },
   { name: "Pittsburgh 20 oz Fiberglass Claw Hammer", brand: "Pittsburgh", category: "hand-tools", price: 9.99, specs: { toolType: "Claw Hammer", size: "20 oz" }, only: ["harbor-freight"] },
-  { name: "Swanson 7 in Speed Square", brand: "Swanson", category: "hand-tools", price: 9.98, specs: { toolType: "Speed Square", size: "7 in" } },
-  { name: "Empire 48 in True Blue Box Level", brand: "Empire", category: "hand-tools", price: 42.98, specs: { toolType: "Level", size: "48 in" } },
-  { name: "Johnson 24 in Aluminum Box Level", brand: "Johnson", category: "hand-tools", price: 19.98, specs: { toolType: "Level", size: "24 in" } },
-  { name: "Stanley FatMax Retractable Utility Knife", brand: "Stanley", category: "hand-tools", price: 14.98, specs: { toolType: "Utility Knife", size: "Standard" } },
-  { name: "Irwin Strait-Line 100 ft Chalk Reel", brand: "Irwin", category: "hand-tools", price: 12.98, specs: { toolType: "Chalk Line", size: "Standard" } },
+  { name: "Swanson 7 in Speed Square", brand: "Swanson", model: "S0101", category: "hand-tools", price: 9.98, specs: { toolType: "Speed Square", size: "7 in" } },
+  { name: "Empire 48 in True Blue Box Level", brand: "Empire", model: "E75.48", category: "hand-tools", price: 42.98, specs: { toolType: "Level", size: "48 in" } },
+  { name: "Johnson 24 in Aluminum Box Level", brand: "Johnson", model: "1741-2400", category: "hand-tools", price: 19.98, specs: { toolType: "Level", size: "24 in" } },
+  { name: "Stanley FatMax Retractable Utility Knife", brand: "Stanley", model: "10-777", category: "hand-tools", price: 14.98, specs: { toolType: "Utility Knife", size: "Standard" } },
+  { name: "Irwin Strait-Line 100 ft Chalk Reel", brand: "Irwin", model: "IWHT48441", category: "hand-tools", price: 12.98, specs: { toolType: "Chalk Line", size: "Standard" } },
 
   // ── Ladders ─────────────────────────────────────────────
-  { name: "Werner 6 ft Fiberglass Step Ladder, Type II (225 lb)", brand: "Werner", category: "ladders", price: 89, specs: { ladderType: "Step Ladder", height: 6, material: "Fiberglass", duty: "Type II (225 lb)" } },
-  { name: "Werner 6 ft Fiberglass Step Ladder, Type IA (300 lb)", brand: "Werner", category: "ladders", price: 149, specs: { ladderType: "Step Ladder", height: 6, material: "Fiberglass", duty: "Type IA (300 lb)" } },
-  { name: "Werner 8 ft Fiberglass Step Ladder, Type IA (300 lb)", brand: "Werner", category: "ladders", price: 199, specs: { ladderType: "Step Ladder", height: 8, material: "Fiberglass", duty: "Type IA (300 lb)" } },
-  { name: "Louisville Ladder 6 ft Fiberglass Step Ladder, Type IAA (375 lb)", brand: "Louisville Ladder", category: "ladders", price: 189, specs: { ladderType: "Step Ladder", height: 6, material: "Fiberglass", duty: "Type IAA (375 lb)" } },
+  { name: "Werner 6 ft Fiberglass Step Ladder, Type II (225 lb)", brand: "Werner", model: "5906", category: "ladders", price: 89, specs: { ladderType: "Step Ladder", height: 6, material: "Fiberglass", duty: "Type II (225 lb)" } },
+  { name: "Werner 6 ft Fiberglass Step Ladder, Type IA (300 lb)", brand: "Werner", model: "6206", category: "ladders", price: 149, specs: { ladderType: "Step Ladder", height: 6, material: "Fiberglass", duty: "Type IA (300 lb)" } },
+  { name: "Werner 8 ft Fiberglass Step Ladder, Type IA (300 lb)", brand: "Werner", model: "6208", category: "ladders", price: 199, specs: { ladderType: "Step Ladder", height: 8, material: "Fiberglass", duty: "Type IA (300 lb)" } },
+  { name: "Louisville Ladder 6 ft Fiberglass Step Ladder, Type IAA (375 lb)", brand: "Louisville Ladder", model: "FS1406HD", category: "ladders", price: 189, specs: { ladderType: "Step Ladder", height: 6, material: "Fiberglass", duty: "Type IAA (375 lb)" } },
   { name: "Werner 24 ft Aluminum Extension Ladder, Type II (225 lb)", brand: "Werner", category: "ladders", price: 229, specs: { ladderType: "Extension Ladder", height: 24, material: "Aluminum", duty: "Type II (225 lb)" }, shippable: false },
   { name: "Werner 28 ft Fiberglass Extension Ladder, Type IA (300 lb)", brand: "Werner", category: "ladders", price: 399, specs: { ladderType: "Extension Ladder", height: 28, material: "Fiberglass", duty: "Type IA (300 lb)" }, shippable: false },
-  { name: "Little Giant Velocity 22 ft Multi-Position Ladder, Type IA (300 lb)", brand: "Little Giant", category: "ladders", price: 299, specs: { ladderType: "Multi-Position", height: 22, material: "Aluminum", duty: "Type IA (300 lb)" } },
+  { name: "Little Giant Velocity 22 ft Multi-Position Ladder, Type IA (300 lb)", brand: "Little Giant", model: "15422-001", category: "ladders", price: 299, specs: { ladderType: "Multi-Position", height: 22, material: "Aluminum", duty: "Type IA (300 lb)" } },
   { name: "Franklin 6 ft Fiberglass Step Ladder, Type II (225 lb)", brand: "Franklin", category: "ladders", price: 79.99, specs: { ladderType: "Step Ladder", height: 6, material: "Fiberglass", duty: "Type II (225 lb)" }, only: ["harbor-freight"] },
 
   // ── Panels & Load Centers ───────────────────────────────
-  { name: "Square D Homeline 100 Amp 20-Space Main Breaker Load Center", brand: "Square D", category: "load-centers", price: 129, specs: { panelLine: "Homeline", amperage: 100, spaces: 20, mainType: "Main Breaker", location: "Indoor" } },
-  { name: "Square D Homeline 200 Amp 40-Space Main Breaker Load Center", brand: "Square D", category: "load-centers", price: 269, specs: { panelLine: "Homeline", amperage: 200, spaces: 40, mainType: "Main Breaker", location: "Indoor" } },
-  { name: "Square D QO 200 Amp 40-Space Main Breaker Load Center", brand: "Square D", category: "load-centers", price: 449, specs: { panelLine: "QO", amperage: 200, spaces: 40, mainType: "Main Breaker", location: "Indoor" } },
-  { name: "Square D Homeline 125 Amp 8-Space Main Lug Outdoor Load Center", brand: "Square D", category: "load-centers", price: 59, specs: { panelLine: "Homeline", amperage: 125, spaces: 8, mainType: "Main Lug", location: "Outdoor" } },
-  { name: "Eaton BR 200 Amp 40-Space Main Breaker Load Center", brand: "Eaton", category: "load-centers", price: 239, specs: { panelLine: "BR", amperage: 200, spaces: 40, mainType: "Main Breaker", location: "Indoor" } },
-  { name: "Eaton BR 125 Amp 12-Space Main Lug Load Center", brand: "Eaton", category: "load-centers", price: 69, specs: { panelLine: "BR", amperage: 125, spaces: 12, mainType: "Main Lug", location: "Indoor" } },
-  { name: "Siemens 200 Amp 40-Space Main Breaker Load Center", brand: "Siemens", category: "load-centers", price: 249, specs: { panelLine: "Siemens QP", amperage: 200, spaces: 40, mainType: "Main Breaker", location: "Indoor" } },
+  { name: "Square D Homeline 100 Amp 20-Space Main Breaker Load Center", brand: "Square D", model: "HOM20M100C", category: "load-centers", price: 129, specs: { panelLine: "Homeline", amperage: 100, spaces: 20, mainType: "Main Breaker", location: "Indoor" } },
+  { name: "Square D Homeline 200 Amp 40-Space Main Breaker Load Center", brand: "Square D", model: "HOM4080M200PC", category: "load-centers", price: 269, specs: { panelLine: "Homeline", amperage: 200, spaces: 40, mainType: "Main Breaker", location: "Indoor" } },
+  { name: "Square D QO 200 Amp 40-Space Main Breaker Load Center", brand: "Square D", model: "QO140M200C", category: "load-centers", price: 449, specs: { panelLine: "QO", amperage: 200, spaces: 40, mainType: "Main Breaker", location: "Indoor" } },
+  { name: "Square D Homeline 125 Amp 8-Space Main Lug Outdoor Load Center", brand: "Square D", model: "HOM816L125RB", category: "load-centers", price: 59, specs: { panelLine: "Homeline", amperage: 125, spaces: 8, mainType: "Main Lug", location: "Outdoor" } },
+  { name: "Eaton BR 200 Amp 40-Space Main Breaker Load Center", brand: "Eaton", model: "BR4040B200", category: "load-centers", price: 239, specs: { panelLine: "BR", amperage: 200, spaces: 40, mainType: "Main Breaker", location: "Indoor" } },
+  { name: "Eaton BR 125 Amp 12-Space Main Lug Load Center", brand: "Eaton", model: "BRP12L125", category: "load-centers", price: 69, specs: { panelLine: "BR", amperage: 125, spaces: 12, mainType: "Main Lug", location: "Indoor" } },
+  { name: "Siemens 200 Amp 40-Space Main Breaker Load Center", brand: "Siemens", model: "SN4040B1200", category: "load-centers", price: 249, specs: { panelLine: "Siemens QP", amperage: 200, spaces: 40, mainType: "Main Breaker", location: "Indoor" } },
 
   // ── Meter Sockets & Mains ───────────────────────────────
   { name: "Milbank 200 Amp Ringless Overhead/Underground Meter Socket", brand: "Milbank", category: "meters", price: 89, specs: { meterType: "Meter Socket", amperage: 200, ring: "Ringless", feed: "Overhead/Underground" } },
-  { name: "Milbank 100 Amp Ring-Type Meter Socket", brand: "Milbank", category: "meters", price: 59, specs: { meterType: "Meter Socket", amperage: 100, ring: "Ring Type", feed: "Overhead/Underground" } },
-  { name: "Eaton 200 Amp Ringless Meter Main Combination", brand: "Eaton", category: "meters", price: 399, specs: { meterType: "Meter Main Combo", amperage: 200, ring: "Ringless", feed: "Overhead/Underground" } },
-  { name: "Square D Homeline 200 Amp Underground Meter Main Combination", brand: "Square D", category: "meters", price: 429, specs: { meterType: "Meter Main Combo", amperage: 200, ring: "Ringless", feed: "Underground" } },
-  { name: "Siemens 200 Amp Meter Main Combination", brand: "Siemens", category: "meters", price: 379, specs: { meterType: "Meter Main Combo", amperage: 200, ring: "Ringless", feed: "Overhead/Underground" } },
-  { name: "Siemens 50 Amp Temporary Power Outlet Panel", brand: "Siemens", category: "meters", price: 219, specs: { meterType: "Temporary Power Outlet", amperage: 50, ring: "Ringless", feed: "Overhead" } },
+  { name: "Milbank 100 Amp Ring-Type Meter Socket", brand: "Milbank", model: "114TB-RP", category: "meters", price: 59, specs: { meterType: "Meter Socket", amperage: 100, ring: "Ring Type", feed: "Overhead/Underground" } },
+  { name: "Eaton 200 Amp Ringless Meter Main Combination", brand: "Eaton", model: "MBP200BTSD", category: "meters", price: 399, specs: { meterType: "Meter Main Combo", amperage: 200, ring: "Ringless", feed: "Overhead/Underground" } },
+  { name: "Square D Homeline 200 Amp Overhead/Underground Meter Main Combination", brand: "Square D", model: "RC816F200C", category: "meters", price: 429, specs: { meterType: "Meter Main Combo", amperage: 200, ring: "Ringless", feed: "Overhead/Underground" } },
+  { name: "Siemens 200 Amp Meter Main Combination", brand: "Siemens", model: "MC0816B1200RCT", category: "meters", price: 379, specs: { meterType: "Meter Main Combo", amperage: 200, ring: "Ringless", feed: "Overhead/Underground" } },
+  { name: "Siemens 50 Amp Temporary Power Outlet Panel", brand: "Siemens", model: "TL17US", category: "meters", price: 219, specs: { meterType: "Temporary Power Outlet", amperage: 50, ring: "Ringless", feed: "Overhead" } },
 
   // ── Electrical Boxes ────────────────────────────────────
   { name: "Carlon 1-Gang 18 cu in New Work PVC Electrical Box", brand: "Carlon", category: "electrical-boxes", price: 0.78, specs: { boxType: "1-Gang", work: "New Work", material: "PVC", volume: 18, fanRated: false } },
@@ -370,7 +372,7 @@ export const PRODUCTS: ProductSeed[] = [
   { name: "Carlon 1-Gang 20 cu in Old Work PVC Electrical Box", brand: "Carlon", category: "electrical-boxes", price: 1.98, specs: { boxType: "1-Gang", work: "Old Work", material: "PVC", volume: 20, fanRated: false } },
   { name: "Carlon 2-Gang 34 cu in Old Work PVC Electrical Box", brand: "Carlon", category: "electrical-boxes", price: 3.48, specs: { boxType: "2-Gang", work: "Old Work", material: "PVC", volume: 34, fanRated: false } },
   { name: "Allied Moulded 1-Gang 22.5 cu in Fiberglass New Work Box", brand: "Allied Moulded", category: "electrical-boxes", price: 2.98, specs: { boxType: "1-Gang", work: "New Work", material: "Fiberglass", volume: 22.5, fanRated: false } },
-  { name: "Carlon 4 in Round 20.3 cu in Old Work Fan-Rated Ceiling Box", brand: "Carlon", category: "electrical-boxes", price: 7.98, specs: { boxType: "Round Ceiling", work: "Old Work", material: "PVC", volume: 20.3, fanRated: true } },
+  { name: "Carlon 4-1/4 in Round 18 cu in Old Work Fan-Rated Ceiling Box", brand: "Carlon", category: "electrical-boxes", price: 7.98, specs: { boxType: "Round Ceiling", work: "Old Work", material: "PVC", volume: 18, fanRated: true } },
   { name: "RACO 4 in Square 2-1/8 in Deep Metal Electrical Box", brand: "RACO", category: "electrical-boxes", price: 3.48, specs: { boxType: "4 in Square", work: "New Work", material: "Metal", volume: 30.3, fanRated: false } },
 
   // ── Conduit & Fittings ──────────────────────────────────
@@ -383,7 +385,7 @@ export const PRODUCTS: ProductSeed[] = [
   { name: "Southwire 3/4 in x 25 ft Liquidtight Flexible Conduit", brand: "Southwire", category: "conduit", price: 39.98, specs: { conduitType: "Liquidtight", productType: "Conduit", size: "3/4 in", length: 25 }, unit: ["ft", 25] },
   { name: "Halex 1/2 in EMT Set-Screw Connector (25-Pack)", brand: "Halex", category: "conduit", price: 12.98, specs: { conduitType: "EMT", productType: "Connector", size: "1/2 in" }, unit: ["each", 25] },
   { name: "Halex 1/2 in EMT Set-Screw Coupling (25-Pack)", brand: "Halex", category: "conduit", price: 11.98, specs: { conduitType: "EMT", productType: "Coupling", size: "1/2 in" }, unit: ["each", 25] },
-  { name: "Halex 3/4 in EMT 1-Hole Strap (25-Pack)", brand: "Halex", category: "conduit", price: 7.48, specs: { conduitType: "EMT", productType: "Strap", size: "3/4 in" }, unit: ["each", 25] },
+  { name: "Halex 3/4 in EMT Drive Strap (25-Pack)", brand: "Halex", category: "conduit", price: 7.48, specs: { conduitType: "EMT", productType: "Strap", size: "3/4 in" }, unit: ["each", 25] },
 
   // ── More pressure-treated lumber ────────────────────────
   lumber("6x6", 8, 34.98, "Southern Yellow Pine", "#2 & Better", true),
@@ -419,28 +421,28 @@ export const PRODUCTS: ProductSeed[] = [
   { name: "Amerimax 10 ft Galvanized Steel Roof Drip Edge", brand: "Amerimax", category: "flashing", price: 6.98, specs: { productType: "Drip Edge", material: "Galvanized Steel", color: "Mill Finish" }, unit: ["ft", 10], shippable: false },
   { name: "Amerimax 5 in x 7 in Aluminum Step Flashing (100-Pack)", brand: "Amerimax", category: "flashing", price: 39.98, specs: { productType: "Step Flashing", material: "Aluminum", color: "Mill Finish" }, unit: ["each", 100] },
   { name: "Amerimax 14 in x 50 ft Aluminum Roll Valley Flashing", brand: "Amerimax", category: "flashing", price: 44.98, specs: { productType: "Roll Flashing", material: "Aluminum", color: "Mill Finish" }, unit: ["ft", 50] },
-  { name: "Oatey 1-1/2 in to 3 in No-Calk Roof Pipe Boot Flashing", brand: "Oatey", category: "flashing", price: 14.98, specs: { productType: "Pipe Boot", material: "Rubber & Aluminum", color: "Black" } },
+  { name: "Oatey All-Flash No-Calk 1-1/2 in to 3 in Galvanized Roof Pipe Flashing", brand: "Oatey", category: "flashing", price: 14.98, specs: { productType: "Pipe Boot", material: "Galvanized Steel", color: "Mill Finish" } },
 
   // ── Plumbing: PEX-A ─────────────────────────────────────
-  { name: "Uponor AquaPEX 1/2 in x 100 ft White PEX-A Pipe", brand: "Uponor", category: "pex-a", price: 62.98, specs: { productType: "Pipe", size: "1/2 in", length: 100, color: "White" }, unit: ["ft", 100] },
-  { name: "Uponor AquaPEX 1/2 in x 100 ft Red PEX-A Pipe", brand: "Uponor", category: "pex-a", price: 64.98, specs: { productType: "Pipe", size: "1/2 in", length: 100, color: "Red" }, unit: ["ft", 100] },
-  { name: "Uponor AquaPEX 3/4 in x 100 ft White PEX-A Pipe", brand: "Uponor", category: "pex-a", price: 109.98, specs: { productType: "Pipe", size: "3/4 in", length: 100, color: "White" }, unit: ["ft", 100] },
-  { name: "Uponor ProPEX 1/2 in Expansion Rings (25-Pack)", brand: "Uponor", category: "pex-a", price: 10.98, specs: { productType: "Expansion Ring", size: "1/2 in" }, unit: ["each", 25] },
+  { name: "Uponor AquaPEX 1/2 in x 100 ft White PEX-A Pipe", brand: "Uponor", model: "F1040500", category: "pex-a", price: 62.98, specs: { productType: "Pipe", size: "1/2 in", length: 100, color: "White" }, unit: ["ft", 100] },
+  { name: "Uponor AquaPEX 1/2 in x 100 ft Red PEX-A Pipe", brand: "Uponor", model: "F2040500", category: "pex-a", price: 64.98, specs: { productType: "Pipe", size: "1/2 in", length: 100, color: "Red" }, unit: ["ft", 100] },
+  { name: "Uponor AquaPEX 3/4 in x 100 ft White PEX-A Pipe", brand: "Uponor", model: "F1040750", category: "pex-a", price: 109.98, specs: { productType: "Pipe", size: "3/4 in", length: 100, color: "White" }, unit: ["ft", 100] },
+  { name: "Uponor ProPEX 1/2 in Expansion Rings with Stop (50-Pack)", brand: "Uponor", model: "Q4690512", category: "pex-a", price: 19.98, specs: { productType: "Expansion Ring", size: "1/2 in" }, unit: ["each", 50] },
   { name: "Uponor ProPEX 1/2 in EP 90° Elbow", brand: "Uponor", category: "pex-a", price: 3.48, specs: { productType: "90° Elbow", size: "1/2 in" } },
-  { name: "Uponor ProPEX 1/2 in EP Tee", brand: "Uponor", category: "pex-a", price: 4.48, specs: { productType: "Tee", size: "1/2 in" } },
+  { name: "Uponor ProPEX 1/2 in EP Tee", brand: "Uponor", model: "Q4755050", category: "pex-a", price: 4.48, specs: { productType: "Tee", size: "1/2 in" } },
   { name: "Uponor ProPEX 3/4 in EP Coupling", brand: "Uponor", category: "pex-a", price: 3.98, specs: { productType: "Coupling", size: "3/4 in" } },
-  { name: "Uponor ProPEX 1/2 in PEX x 1/2 in FNPT Brass Adapter", brand: "Uponor", category: "pex-a", price: 7.98, specs: { productType: "Adapter", size: "1/2 in" } },
+  { name: "Uponor ProPEX 1/2 in PEX x 1/2 in FNPT Brass Adapter", brand: "Uponor", model: "LF4575050", category: "pex-a", price: 7.98, specs: { productType: "Adapter", size: "1/2 in" } },
 
   // ── Plumbing: PEX-B ─────────────────────────────────────
-  { name: "SharkBite 1/2 in x 100 ft Red PEX-B Pipe", brand: "SharkBite", category: "pex-b", price: 42.98, specs: { productType: "Pipe", size: "1/2 in", length: 100, color: "Red" }, unit: ["ft", 100] },
-  { name: "SharkBite 1/2 in x 100 ft Blue PEX-B Pipe", brand: "SharkBite", category: "pex-b", price: 42.98, specs: { productType: "Pipe", size: "1/2 in", length: 100, color: "Blue" }, unit: ["ft", 100] },
-  { name: "SharkBite 3/4 in x 100 ft Blue PEX-B Pipe", brand: "SharkBite", category: "pex-b", price: 69.98, specs: { productType: "Pipe", size: "3/4 in", length: 100, color: "Blue" }, unit: ["ft", 100] },
-  { name: "SharkBite 1 in x 100 ft White PEX-B Pipe", brand: "SharkBite", category: "pex-b", price: 109.98, specs: { productType: "Pipe", size: "1 in", length: 100, color: "White" }, unit: ["ft", 100] },
+  { name: "SharkBite 1/2 in x 100 ft Red PEX-B Pipe", brand: "SharkBite", model: "U860R100", category: "pex-b", price: 42.98, specs: { productType: "Pipe", size: "1/2 in", length: 100, color: "Red" }, unit: ["ft", 100] },
+  { name: "SharkBite 1/2 in x 100 ft Blue PEX-B Pipe", brand: "SharkBite", model: "U860B100", category: "pex-b", price: 42.98, specs: { productType: "Pipe", size: "1/2 in", length: 100, color: "Blue" }, unit: ["ft", 100] },
+  { name: "SharkBite 3/4 in x 100 ft Blue PEX-B Pipe", brand: "SharkBite", model: "U870B100", category: "pex-b", price: 69.98, specs: { productType: "Pipe", size: "3/4 in", length: 100, color: "Blue" }, unit: ["ft", 100] },
+  { name: "SharkBite 1 in x 100 ft White PEX-B Pipe", brand: "SharkBite", model: "U880W100", category: "pex-b", price: 109.98, specs: { productType: "Pipe", size: "1 in", length: 100, color: "White" }, unit: ["ft", 100] },
   { name: "Apollo 3/4 in x 100 ft Red PEX-B Pipe", brand: "Apollo", category: "pex-b", price: 64.98, specs: { productType: "Pipe", size: "3/4 in", length: 100, color: "Red" }, unit: ["ft", 100], exclude: ["lowes"] },
   { name: "Apollo 1/2 in PEX Crimp Brass 90° Elbow (10-Pack)", brand: "Apollo", category: "pex-b", price: 12.98, specs: { productType: "90° Elbow", size: "1/2 in" }, unit: ["each", 10], exclude: ["lowes"] },
   { name: "Apollo 1/2 in PEX-B Brass Crimp Tee (5-Pack)", brand: "Apollo", category: "pex-b", price: 11.98, specs: { productType: "Tee", size: "1/2 in" }, unit: ["each", 5], exclude: ["lowes"] },
   { name: "Apollo 3/4 in PEX Crimp Brass Coupling (5-Pack)", brand: "Apollo", category: "pex-b", price: 9.98, specs: { productType: "Coupling", size: "3/4 in" }, unit: ["each", 5], exclude: ["lowes"] },
-  { name: "Apollo 1/2 in Copper PEX Crimp Rings (50-Pack)", brand: "Apollo", category: "pex-b", price: 11.98, specs: { productType: "Crimp Ring", size: "1/2 in" }, unit: ["each", 50], exclude: ["lowes"] },
+  { name: "Apollo 1/2 in Copper PEX Crimp Rings (50-Pack)", brand: "Apollo", model: "APXCR1250PK", category: "pex-b", price: 11.98, specs: { productType: "Crimp Ring", size: "1/2 in" }, unit: ["each", 50], exclude: ["lowes"] },
   { name: "Apollo 1/2 in Stainless Steel PEX Cinch Clamps (50-Pack)", brand: "Apollo", category: "pex-b", price: 12.98, specs: { productType: "Cinch Clamp", size: "1/2 in" }, unit: ["each", 50], exclude: ["lowes"] },
 
   // ── Plumbing: Copper ────────────────────────────────────
@@ -461,22 +463,22 @@ export const PRODUCTS: ProductSeed[] = [
   { name: "Charlotte Pipe 1/2 in PVC Sch 40 90° Elbow (10-Pack)", brand: "Charlotte Pipe", category: "pvc", price: 5.48, specs: { productType: "90° Elbow", size: "1/2 in", schedule: "Sch 40" }, unit: ["each", 10] },
   { name: "Charlotte Pipe 3/4 in PVC Sch 40 Tee (10-Pack)", brand: "Charlotte Pipe", category: "pvc", price: 9.98, specs: { productType: "Tee", size: "3/4 in", schedule: "Sch 40" }, unit: ["each", 10] },
   { name: "Charlotte Pipe 1/2 in PVC Sch 40 Coupling (10-Pack)", brand: "Charlotte Pipe", category: "pvc", price: 3.98, specs: { productType: "Coupling", size: "1/2 in", schedule: "Sch 40" }, unit: ["each", 10] },
-  { name: "Oatey PVC Cement and Purple Primer Combo Pack", brand: "Oatey", category: "pvc", price: 12.98, specs: { productType: "Cement & Primer" } },
+  { name: "Oatey PVC Cement and Purple Primer Combo Pack", brand: "Oatey", model: "30246", category: "pvc", price: 12.98, specs: { productType: "Cement & Primer" } },
 
   // ── Plumbing: CPVC ──────────────────────────────────────
   { name: "Charlotte Pipe 1/2 in x 10 ft CPVC CTS Pipe", brand: "Charlotte Pipe", category: "cpvc", price: 7.48, specs: { productType: "Pipe", size: "1/2 in", length: 10 }, unit: ["ft", 10], shippable: false },
   { name: "Charlotte Pipe 3/4 in x 10 ft CPVC CTS Pipe", brand: "Charlotte Pipe", category: "cpvc", price: 11.98, specs: { productType: "Pipe", size: "3/4 in", length: 10 }, unit: ["ft", 10], shippable: false },
   { name: "NIBCO 1/2 in CPVC CTS 90° Elbow (10-Pack)", brand: "NIBCO", category: "cpvc", price: 5.98, specs: { productType: "90° Elbow", size: "1/2 in" }, unit: ["each", 10] },
   { name: "NIBCO 1/2 in CPVC CTS Coupling (10-Pack)", brand: "NIBCO", category: "cpvc", price: 4.48, specs: { productType: "Coupling", size: "1/2 in" }, unit: ["each", 10] },
-  { name: "NIBCO 3/4 in CPVC CTS Tee (5-Pack)", brand: "NIBCO", category: "cpvc", price: 6.98, specs: { productType: "Tee", size: "3/4 in" }, unit: ["each", 5] },
+  { name: "NIBCO 3/4 in CPVC CTS Tee (10-Pack)", brand: "NIBCO", category: "cpvc", price: 13.98, specs: { productType: "Tee", size: "3/4 in" }, unit: ["each", 10] },
   { name: "Oatey FlowGuard Gold CPVC Cement, 8 oz", brand: "Oatey", category: "cpvc", price: 10.98, specs: { productType: "Cement & Primer" } },
 
   // ── Plumbing: Push-to-Connect ───────────────────────────
   { name: "SharkBite 1/2 in Push-to-Connect Brass 90° Elbow", brand: "SharkBite", category: "push-to-connect", price: 9.98, specs: { productType: "90° Elbow", size: "1/2 in" } },
-  { name: "SharkBite 3/4 in Push-to-Connect Brass 90° Elbow", brand: "SharkBite", category: "push-to-connect", price: 14.98, specs: { productType: "90° Elbow", size: "3/4 in" } },
-  { name: "SharkBite 1/2 in Push-to-Connect Brass Coupling", brand: "SharkBite", category: "push-to-connect", price: 8.48, specs: { productType: "Coupling", size: "1/2 in" } },
-  { name: "SharkBite 3/4 in Push-to-Connect Brass Tee", brand: "SharkBite", category: "push-to-connect", price: 19.98, specs: { productType: "Tee", size: "3/4 in" } },
-  { name: "SharkBite 3/4 in Push-to-Connect Ball Valve", brand: "SharkBite", category: "push-to-connect", price: 29.98, specs: { productType: "Ball Valve", size: "3/4 in" } },
-  { name: "SharkBite 1/2 in x 3/8 in Compression Angle Stop Valve", brand: "SharkBite", category: "push-to-connect", price: 14.98, specs: { productType: "Stop Valve", size: "1/2 in" } },
-  { name: "SharkBite 1/2 in Push x 1/2 in FNPT Brass Adapter", brand: "SharkBite", category: "push-to-connect", price: 9.48, specs: { productType: "Adapter", size: "1/2 in" } },
+  { name: "SharkBite 3/4 in Push-to-Connect Brass 90° Elbow", brand: "SharkBite", model: "U256LFA", category: "push-to-connect", price: 14.98, specs: { productType: "90° Elbow", size: "3/4 in" } },
+  { name: "SharkBite 1/2 in Push-to-Connect Brass Coupling", brand: "SharkBite", model: "U008LFA", category: "push-to-connect", price: 8.48, specs: { productType: "Coupling", size: "1/2 in" } },
+  { name: "SharkBite 3/4 in Push-to-Connect Brass Tee", brand: "SharkBite", model: "U370LFA", category: "push-to-connect", price: 19.98, specs: { productType: "Tee", size: "3/4 in" } },
+  { name: "SharkBite 3/4 in Push-to-Connect Ball Valve", brand: "SharkBite", model: "22223-0000LF", category: "push-to-connect", price: 29.98, specs: { productType: "Ball Valve", size: "3/4 in" } },
+  { name: "SharkBite 1/2 in x 3/8 in Compression Angle Stop Valve", brand: "SharkBite", model: "23036-0000LF", category: "push-to-connect", price: 14.98, specs: { productType: "Stop Valve", size: "1/2 in" } },
+  { name: "SharkBite 1/2 in Push x 1/2 in FNPT Brass Adapter", brand: "SharkBite", model: "U088LF", category: "push-to-connect", price: 9.48, specs: { productType: "Adapter", size: "1/2 in" } },
 ];

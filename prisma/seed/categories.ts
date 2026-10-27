@@ -168,7 +168,7 @@ export const CATEGORIES: CategorySeed[] = [
         attributes: [
           { key: "fastenerType", label: "Type", type: "ENUM", options: ["Hand-Drive Nails", "Collated Framing Nails", "Deck Screws", "Construction Screws", "Structural Screws", "Drywall Screws", "Roofing Nails"] },
           { key: "length", label: "Length", type: "NUMBER", unit: "in" },
-          { key: "finish", label: "Finish", type: "ENUM", options: ["Bright", "Hot-Dip Galvanized", "Coated"] },
+          { key: "finish", label: "Finish", type: "ENUM", options: ["Bright", "Hot-Dip Galvanized", "Electro-Galvanized", "Coated"] },
           { key: "exterior", label: "Rated for exterior/treated lumber", type: "BOOLEAN" },
         ],
       },

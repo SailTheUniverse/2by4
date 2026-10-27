@@ -121,7 +121,10 @@ Amazon retired PA-API 5 in spring 2026; the Creators API replaces it, with new c
    `npm run amazon:match -- --set <product-slug> <ASIN>`.
 4. `npm run prices:refresh -- amazon` fetches live prices (10 ASINs per request, about 1 request/second).
 
-Once credentials are set, Amazon listings without an ASIN show no Amazon price, rather than sample data. The request
+Amazon links go straight to the product page (`amazon.com/dp/<ASIN>`). The verified ASINs live in
+`prisma/seed/amazon.ts`; each was matched by brand, model and pack size. A product only gets an Amazon listing when
+it has an ASIN there, so there are no search-page links. Once credentials are set, Amazon listings without an ASIN
+show no Amazon price, rather than sample data. The request
 format (token endpoints, `getItems`/`searchItems` fields, `offersV2` response) was taken from published Creators API
 client SDKs, because Amazon's docs site wasn't reachable while building this. Unit tests cover it with a mocked API.
 Check the first live run against Amazon's current docs, since it hasn't run against real credentials yet.

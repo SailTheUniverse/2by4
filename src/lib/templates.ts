@@ -20,7 +20,7 @@ export const TEMPLATES: ProjectTemplate[] = [
       { slug: "2x6-x-12-ft-2-and-better-spf-lumber", quantity: 8 },
       { slug: "23-32-in-x-4-ft-x-8-ft-cdx-plywood", quantity: 3 },
       { slug: "7-16-in-x-4-ft-x-8-ft-osb-sheathing-panel", quantity: 16 },
-      { slug: "paslode-3-1-4-in-30-paper-tape-framing-nails-2-000-ct", quantity: 1 },
+      { slug: "paslode-3-1-4-in-30-galvanized-paper-tape-framing-nails-2-000-ct", quantity: 1 },
     ],
   },
   {
@@ -29,7 +29,7 @@ export const TEMPLATES: ProjectTemplate[] = [
     description: "Hang and finish walls and ceiling with 8 ft ceilings.",
     items: [
       { slug: "usg-sheetrock-1-2-in-x-4-ft-x-8-ft-ultralight-drywall-panel", quantity: 18 },
-      { slug: "grip-rite-6-x-1-1-4-in-coarse-thread-drywall-screws-5-lb-approx-1-500-ct", quantity: 1 },
+      { slug: "grip-rite-6-x-1-1-4-in-coarse-thread-drywall-screws-5-lb-approx-1-190-ct", quantity: 1 },
       { slug: "usg-sheetrock-all-purpose-pre-mixed-joint-compound-4-5-gal", quantity: 2 },
       { slug: "usg-sheetrock-paper-joint-tape-2-1-16-in-x-500-ft", quantity: 1 },
       { slug: "clarkdietrich-1-1-4-in-x-8-ft-metal-drywall-corner-bead", quantity: 4 },

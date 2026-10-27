@@ -14,7 +14,8 @@
     "prices:refresh": "tsx scripts/refresh-prices.ts",
     "postinstall": "prisma generate",
     "test": "vitest run",
-    "amazon:match": "tsx scripts/amazon-match.ts"
+    "amazon:match": "tsx scripts/amazon-match.ts",
+    "vercel-build": "prisma migrate deploy && tsx scripts/seed-if-empty.ts && next build"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.10.1",

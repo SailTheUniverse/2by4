@@ -36,6 +36,24 @@ Other scripts:
 | `npm run db:reset` | Drop, re-migrate and re-seed the database |
 | `npm run typecheck` / `npm run lint` | Checks |
 
+## Deploy (free: Vercel + Neon)
+
+The app needs a Node server and Postgres, so it runs on Vercel's free Hobby plan with a free Neon database added
+through Vercel. Deploys come straight from GitHub.
+
+1. Sign in at [vercel.com](https://vercel.com) with your GitHub account (Hobby plan).
+2. **Add New → Project**, import `SailTheUniverse/2by4`, and click **Deploy**. This first deploy fails because there's no
+   database yet. That's expected.
+3. In the project, open **Storage → Create Database → Neon**, choose the free plan and a US East region, and connect it
+   to the project for all environments. Keep the default variable names (`DATABASE_URL`, `DATABASE_URL_UNPOOLED`).
+4. Optional, keeps sample prices fresh: **Settings → Environment Variables**, add `CRON_SECRET` with a long random value.
+5. **Deployments → ⋯ → Redeploy.** The build runs migrations and, on an empty database, seeds the sample catalog
+   (adds about 2 minutes to the first build). Later deploys keep existing data.
+
+`vercel.json` schedules `/api/cron/refresh-prices` every 3 days. It refreshes prices and trims history older than
+120 days, which keeps the database well under Neon's free storage limit (the seed uses about 150 MB). Every push to
+`draft-mvp` redeploys.
+
 ## How it works
 
 ```

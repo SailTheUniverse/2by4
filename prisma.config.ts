@@ -8,6 +8,8 @@ export default defineConfig({
     seed: "tsx prisma/seed/index.ts",
   },
   datasource: {
-    url: process.env["DATABASE_URL"],
+    // Migrations need a direct (unpooled) connection. Vercel's Neon integration
+    // provides DATABASE_URL_UNPOOLED; locally DATABASE_URL is already direct.
+    url: process.env["DATABASE_URL_UNPOOLED"] || process.env["DATABASE_URL"],
   },
 });

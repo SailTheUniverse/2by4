@@ -34,5 +34,12 @@ export interface Quote {
 
 export interface PriceProvider {
   retailerSlug: string;
-  getQuotes(listing: ListingRef, stores: StoreRef[]): Promise<Quote[]>;
+  /** Stored on each Offer so the UI can tell live prices from sample data */
+  source: string;
+  /**
+   * Quotes for many listings at once, keyed by listingId. Providers backed by a
+   * real API batch requests here. A listing missing from the result has no
+   * current offers (its old offers are removed).
+   */
+  getQuotes(listings: ListingRef[], stores: StoreRef[]): Promise<Map<string, Quote[]>>;
 }

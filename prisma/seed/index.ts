@@ -3,6 +3,8 @@
 //   npx prisma db seed
 import "dotenv/config";
 import { db } from "../../src/lib/db";
+import { getProvider } from "../../src/lib/providers";
+import { currentDay, quoteListing } from "../../src/lib/providers/mock";
 import { refreshPrices } from "../../src/lib/refresh";
 import { CATEGORIES, type CategorySeed } from "./categories";
 import { CATEGORY_CARRIERS, PRODUCTS } from "./products";
@@ -113,9 +115,43 @@ async function main() {
     });
   }
 
-  console.log("Prices…");
+  console.log("Price history (90 days)…");
+  const points = await seedHistory(90, 3);
+  console.log(`  ${points} history points`);
+
+  console.log("Current prices…");
   const offers = await refreshPrices(db);
   console.log(`Seeded ${PRODUCTS.length} products with ${offers} offers.`);
+}
+
+/** Back-fill mock price history: one point every `step` days for the last `days` days. */
+async function seedHistory(days: number, step: number) {
+  const retailers = await db.retailer.findMany({ include: { stores: { select: { id: true, zip: true } } } });
+  let total = 0;
+  for (const retailer of retailers) {
+    if (getProvider(retailer.slug).source !== "mock") continue; // real sources build their own history
+    const listings = await db.listing.findMany({ where: { retailerId: retailer.id }, include: { product: true } });
+    const stores = retailer.hasStores ? retailer.stores : [];
+    let batch: { listingId: string; locationKey: string; price: number; shippingCost: number | null; recordedAt: Date }[] = [];
+    for (let ago = days; ago >= step; ago -= step) {
+      const date = new Date(Date.now() - ago * 86_400_000);
+      const day = currentDay(date);
+      for (const l of listings) {
+        const product = { slug: l.product.slug, upc: l.product.upc, model: l.product.model, shippable: l.product.shippable, referencePrice: Number(l.product.typicalPrice) };
+        for (const q of quoteListing(retailer.slug, product, stores, day)) {
+          batch.push({ listingId: l.id, locationKey: q.locationKey, price: q.price, shippingCost: q.shippingCost, recordedAt: date });
+        }
+      }
+      if (batch.length > 5000) {
+        await db.pricePoint.createMany({ data: batch });
+        total += batch.length;
+        batch = [];
+      }
+    }
+    await db.pricePoint.createMany({ data: batch });
+    total += batch.length;
+  }
+  return total;
 }
 
 main()

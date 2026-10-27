@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import { AddToListForm } from "@/components/AddToListForm";
+import { PriceHistoryChart } from "@/components/PriceHistoryChart";
 import { PriceTable } from "@/components/PriceTable";
 import { ProductCard, ProductThumb } from "@/components/ProductCard";
 import { RetailerBadge } from "@/components/RetailerBadge";
 import { PageSkeleton } from "@/components/Skeletons";
-import { getAlternatives, getProduct } from "@/lib/catalog";
+import { getAlternatives, getPriceHistory, getProduct } from "@/lib/catalog";
 import { formatPrice, formatSpec, formatUnitPrice } from "@/lib/format";
 import { specHighlights } from "@/lib/specs";
 import { getZip } from "@/lib/zip";
@@ -25,9 +27,15 @@ async function ProductView({ params }: PageProps<"/p/[slug]">) {
   if (!result) notFound();
   const { product, category } = result;
   const { prices } = product;
-  const alternatives = await getAlternatives(product, category.attributes, zip);
+  const [alternatives, history] = await Promise.all([
+    getAlternatives(product, category.attributes, zip),
+    getPriceHistory(product.id, zip),
+  ]);
 
   const vsTypical = prices.bestTotal !== null ? product.typicalPrice - prices.bestTotal : 0;
+  // Lowest price any retailer offered this shopper in the history window
+  const historyLow = Math.min(...history.flatMap((s) => s.points.map((p) => p.price)));
+  const atHistoryLow = prices.bestTotal !== null && Number.isFinite(historyLow) && prices.bestTotal <= historyLow;
 
   return (
     <div className="space-y-8">
@@ -69,6 +77,11 @@ async function ProductView({ params }: PageProps<"/p/[slug]">) {
             <>
               <p className="text-sm text-muted">Best price{zip ? ` near ${zip}` : ""}</p>
               <p className="tabular mt-1 text-4xl font-bold">{formatPrice(prices.bestTotal)}</p>
+              {atHistoryLow && (
+                <p className="mt-1 inline-block rounded bg-save-soft px-1.5 py-0.5 text-xs font-semibold text-save">
+                  Lowest price in 90 days
+                </p>
+              )}
               {product.unitQty !== 1 && (
                 <p className="tabular text-sm text-muted">{formatUnitPrice(product.unitPrice, product.unitLabel)}</p>
               )}
@@ -81,6 +94,12 @@ async function ProductView({ params }: PageProps<"/p/[slug]">) {
                   <div className="flex justify-between">
                     <dt className="text-muted">vs. priciest store</dt>
                     <dd className="tabular font-medium text-save">Save {formatPrice(prices.savings)}</dd>
+                  </div>
+                )}
+                {Number.isFinite(historyLow) && !atHistoryLow && (
+                  <div className="flex justify-between">
+                    <dt className="text-muted">90-day low</dt>
+                    <dd className="tabular">{formatPrice(historyLow)}</dd>
                   </div>
                 )}
                 <div className="flex justify-between">
@@ -102,6 +121,12 @@ async function ProductView({ params }: PageProps<"/p/[slug]">) {
               >
                 Go to {prices.best.retailer.name} ↗
               </a>
+              <div className="mt-3">
+                <AddToListForm
+                  productId={product.id}
+                  unitHint={product.unitQty !== 1 ? `${product.unitQty} ${product.unitLabel}` : undefined}
+                />
+              </div>
             </>
           ) : (
             <p className="text-muted">Not in stock at any retailer near you right now.</p>
@@ -113,6 +138,18 @@ async function ProductView({ params }: PageProps<"/p/[slug]">) {
         <h2 className="mb-3 text-xl font-semibold">Compare prices</h2>
         <PriceTable product={product} hasZip={!!zip} />
       </section>
+
+      {history.length > 0 && (
+        <section>
+          <h2 className="mb-1 text-xl font-semibold">Price history</h2>
+          <p className="mb-3 text-sm text-muted">
+            Each retailer&apos;s best price for you per day: nearest-store price or online price with shipping.
+          </p>
+          <div className="rounded-xl border border-line bg-surface p-4">
+            <PriceHistoryChart series={history} />
+          </div>
+        </section>
+      )}
 
       <div className="grid gap-8 lg:grid-cols-[1fr_1.4fr]">
         <section>

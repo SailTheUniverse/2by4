@@ -48,30 +48,31 @@ model AttributeDef {
 }
 
 model Product {
-  id           String    @id @default(cuid())
-  slug         String    @unique
+  id           String        @id @default(cuid())
+  slug         String        @unique
   name         String
   brand        String
   model        String?
-  upc          String?   @unique
+  upc          String?       @unique
   description  String?
   imageUrl     String?
   categoryId   String
-  category     Category  @relation(fields: [categoryId], references: [id])
+  category     Category      @relation(fields: [categoryId], references: [id])
   // Category-specific specs, keyed by AttributeDef.key: { "gauge": "12 AWG", "length": 250 }
-  specs        Json      @default("{}")
+  specs        Json          @default("{}")
   // What one unit is and how many are in the package, for unit-price comparison
   // e.g. 250 ft of wire → unitLabel "ft", unitQty 250.
-  unitLabel    String    @default("each")
-  unitQty      Float     @default(1)
+  unitLabel    String        @default("each")
+  unitQty      Float         @default(1)
   // Bulky items (lumber, sheet goods) are in-store/pickup only at most retailers
-  shippable    Boolean   @default(true)
+  shippable    Boolean       @default(true)
   // Typical market price across retailers. Drives "good deal" signals, and the
   // mock provider generates prices around it.
-  typicalPrice Decimal   @db.Decimal(10, 2)
+  typicalPrice Decimal       @db.Decimal(10, 2)
   listings     Listing[]
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  projectItems ProjectItem[]
 
   @@index([categoryId])
   @@index([brand])
@@ -131,6 +132,8 @@ model Offer {
   // Shipping for online offers; null when it's free or not applicable
   shippingCost Decimal? @db.Decimal(10, 2)
   inStock      Boolean  @default(true)
+  // Which provider produced this price: "mock" or a real source like "amazon-creators-api"
+  source       String   @default("mock")
   checkedAt    DateTime @default(now())
 
   @@unique([listingId, locationKey])
@@ -138,12 +141,35 @@ model Offer {
 }
 
 model PricePoint {
-  id          String   @id @default(cuid())
-  listingId   String
-  listing     Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
-  locationKey String
-  price       Decimal  @db.Decimal(10, 2)
-  recordedAt  DateTime @default(now())
+  id           String   @id @default(cuid())
+  listingId    String
+  listing      Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  locationKey  String
+  price        Decimal  @db.Decimal(10, 2)
+  shippingCost Decimal? @db.Decimal(10, 2)
+  recordedAt   DateTime @default(now())
 
   @@index([listingId, locationKey, recordedAt])
+}
+
+// A shopper's materials list. No accounts yet: the list id lives in a cookie,
+// and /lists/[id] doubles as a share link.
+model ProjectList {
+  id        String        @id @default(cuid())
+  name      String        @default("My project")
+  items     ProjectItem[]
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+}
+
+model ProjectItem {
+  id        String      @id @default(cuid())
+  listId    String
+  list      ProjectList @relation(fields: [listId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  quantity  Int         @default(1)
+  createdAt DateTime    @default(now())
+
+  @@unique([listId, productId])
 }

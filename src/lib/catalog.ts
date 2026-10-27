@@ -93,6 +93,7 @@ export async function loadProducts(where: Prisma.ProductWhereInput, zip: string 
           price: Number(o.price),
           shippingCost: o.shippingCost === null ? null : Number(o.shippingCost),
           inStock: o.inStock,
+          source: o.source,
           checkedAt: o.checkedAt,
           store: o.store,
         }),
@@ -167,4 +168,47 @@ export async function getTopSavings(zip: string | null, limit = 8) {
     .filter((p) => p.prices.inStockCount >= 2 && p.prices.highestTotal)
     .sort((a, b) => b.prices.savings / b.prices.highestTotal! - a.prices.savings / a.prices.highestTotal!)
     .slice(0, limit);
+}
+
+// ─── Price history ──────────────────────────────────────────
+
+export interface HistorySeries {
+  retailer: { slug: string; name: string; color: string };
+  /** One point per day: the best price available to the shopper that day */
+  points: { day: string; price: number }[];
+}
+
+/**
+ * Daily price history per retailer for the shopper's location: the cheaper of
+ * the nearest store's price and the online price plus shipping.
+ */
+export async function getPriceHistory(productId: string, zip: string | null, days = 90): Promise<HistorySeries[]> {
+  const storeIds = (await getNearbyStores(zip)).map((s) => s.id);
+  const since = new Date(Date.now() - days * 86_400_000);
+  const listings = await db.listing.findMany({
+    where: { productId },
+    include: {
+      retailer: { select: { slug: true, name: true, color: true } },
+      history: {
+        where: { recordedAt: { gte: since }, locationKey: { in: ["online", ...storeIds] } },
+        orderBy: { recordedAt: "asc" },
+      },
+    },
+  });
+
+  return listings
+    .map((l) => {
+      const byDay = new Map<string, number>();
+      for (const h of l.history) {
+        const day = h.recordedAt.toISOString().slice(0, 10);
+        const total = Number(h.price) + (h.shippingCost === null ? 0 : Number(h.shippingCost));
+        byDay.set(day, Math.min(byDay.get(day) ?? Infinity, total));
+      }
+      return {
+        retailer: l.retailer,
+        points: [...byDay.entries()].map(([day, price]) => ({ day, price: Math.round(price * 100) / 100 })),
+      };
+    })
+    .filter((s) => s.points.length > 1)
+    .sort((a, b) => a.retailer.name.localeCompare(b.retailer.name));
 }

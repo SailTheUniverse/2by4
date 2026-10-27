@@ -5,6 +5,7 @@ export interface RawOffer {
   price: number;
   shippingCost: number | null;
   inStock: boolean;
+  source: string;
   checkedAt: Date;
   store: { id: string; name: string; city: string; state: string; zip: string } | null;
 }
@@ -22,6 +23,8 @@ export interface Option {
   shipping: number; // 0 for pickup / free shipping
   total: number;
   inStock: boolean;
+  /** "mock" for sample data, otherwise the live source name */
+  source: string;
   checkedAt: Date;
   store: RawOffer["store"];
 }
@@ -53,6 +56,7 @@ function toOption(o: RawOffer): Option {
     shipping,
     total: Math.round((o.price + shipping) * 100) / 100,
     inStock: o.inStock,
+    source: o.source,
     checkedAt: o.checkedAt,
     store: o.store,
   };

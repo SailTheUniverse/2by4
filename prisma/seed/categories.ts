@@ -84,10 +84,92 @@ export const CATEGORIES: CategorySeed[] = [
         slug: "fasteners",
         name: "Nails & Screws",
         attributes: [
-          { key: "fastenerType", label: "Type", type: "ENUM", options: ["Hand-Drive Nails", "Collated Framing Nails", "Deck Screws", "Construction Screws", "Structural Screws"] },
+          { key: "fastenerType", label: "Type", type: "ENUM", options: ["Hand-Drive Nails", "Collated Framing Nails", "Deck Screws", "Construction Screws", "Structural Screws", "Drywall Screws", "Roofing Nails"] },
           { key: "length", label: "Length", type: "NUMBER", unit: "in" },
           { key: "finish", label: "Finish", type: "ENUM", options: ["Bright", "Hot-Dip Galvanized", "Coated"] },
           { key: "exterior", label: "Rated for exterior/treated lumber", type: "BOOLEAN" },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "drywall",
+    name: "Drywall",
+    icon: "📐",
+    children: [
+      {
+        slug: "drywall-panels",
+        name: "Drywall Panels",
+        attributes: [
+          { key: "panelType", label: "Panel type", type: "ENUM", options: ["Regular", "Lightweight", "Moisture-Resistant", "Mold & Moisture-Resistant", "Fire-Rated (Type X)"] },
+          { key: "thickness", label: "Thickness", type: "ENUM", options: ["1/4 in", "3/8 in", "1/2 in", "5/8 in"] },
+          { key: "size", label: "Sheet size", type: "ENUM", options: ["4 ft x 8 ft", "4 ft x 10 ft", "4 ft x 12 ft"] },
+        ],
+      },
+      {
+        slug: "joint-compound-tape",
+        name: "Joint Compound & Tape",
+        attributes: [
+          { key: "productType", label: "Product", type: "ENUM", options: ["All-Purpose Compound", "Lightweight Compound", "Setting-Type Compound", "Paper Tape", "Mesh Tape", "Corner Bead"] },
+          { key: "form", label: "Form", type: "ENUM", options: ["Pre-Mixed", "Powder", "Roll", "Stick"] },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "concrete-masonry",
+    name: "Concrete & Masonry",
+    icon: "🧱",
+    children: [
+      {
+        slug: "concrete-mix",
+        name: "Concrete Mix",
+        attributes: [
+          { key: "mixType", label: "Mix", type: "ENUM", options: ["Standard", "High-Strength", "Fast-Setting", "Crack-Resistant"] },
+          { key: "bagWeight", label: "Bag weight", type: "NUMBER", unit: "lb" },
+          { key: "strength", label: "Compressive strength", type: "NUMBER", unit: "psi" },
+        ],
+      },
+      {
+        slug: "mortar-stucco",
+        name: "Mortar, Sand & Stucco",
+        attributes: [
+          { key: "mixType", label: "Mix", type: "ENUM", options: ["Type S Mortar", "Type N Mortar", "Sand/Topping Mix", "Stucco", "All-Purpose Sand"] },
+          { key: "bagWeight", label: "Bag weight", type: "NUMBER", unit: "lb" },
+        ],
+      },
+      {
+        slug: "block-pavers",
+        name: "Block & Pavers",
+        attributes: [
+          { key: "blockType", label: "Type", type: "ENUM", options: ["Concrete Block (CMU)", "Cap Block", "Paver", "Retaining Wall Block"] },
+          { key: "size", label: "Size", type: "ENUM", options: ["8 in x 8 in x 16 in", "4 in x 8 in x 16 in", "2 in x 8 in x 16 in", "4 in x 8 in", "12 in x 12 in", "4 in x 11.75 in x 6.75 in"] },
+          { key: "color", label: "Color", type: "ENUM", options: ["Gray", "Red", "Tan", "Charcoal"] },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "roofing",
+    name: "Roofing",
+    icon: "🏠",
+    children: [
+      {
+        slug: "shingles",
+        name: "Shingles",
+        attributes: [
+          { key: "style", label: "Style", type: "ENUM", options: ["Architectural", "3-Tab"] },
+          { key: "color", label: "Color", type: "ENUM", options: ["Onyx Black", "Charcoal", "Estate Gray", "Driftwood", "Weathered Wood", "Shasta White"] },
+          { key: "coverage", label: "Coverage per bundle", type: "NUMBER", unit: "sq ft" },
+          { key: "windRating", label: "Wind rating", type: "NUMBER", unit: "mph" },
+        ],
+      },
+      {
+        slug: "underlayment",
+        name: "Underlayment & Flashing",
+        attributes: [
+          { key: "productType", label: "Product", type: "ENUM", options: ["Synthetic Underlayment", "Felt #15", "Felt #30", "Ice & Water Shield", "Drip Edge"] },
+          { key: "coverage", label: "Coverage", type: "NUMBER", unit: "sq ft" },
         ],
       },
     ],
@@ -142,6 +224,34 @@ export const CATEGORIES: CategorySeed[] = [
           { key: "bladeSize", label: "Blade size", type: "ENUM", options: ["6-1/2 in", "7-1/4 in"] },
           { key: "configuration", label: "Includes", type: "ENUM", options: ["Tool Only", "Kit (1 Battery)", "Corded"] },
           { key: "brushless", label: "Brushless motor", type: "BOOLEAN" },
+        ],
+      },
+      {
+        slug: "miter-saws",
+        name: "Miter Saws",
+        attributes: [
+          { key: "bladeSize", label: "Blade size", type: "ENUM", options: ["7-1/4 in", "10 in", "12 in"] },
+          { key: "bevel", label: "Bevel", type: "ENUM", options: ["Single Bevel", "Dual Bevel"] },
+          { key: "sliding", label: "Sliding", type: "BOOLEAN" },
+          { key: "power", label: "Power", type: "ENUM", options: ["Corded", "Cordless"] },
+        ],
+      },
+      {
+        slug: "hand-tools",
+        name: "Hand Tools",
+        attributes: [
+          { key: "toolType", label: "Tool", type: "ENUM", options: ["Tape Measure", "Framing Hammer", "Claw Hammer", "Speed Square", "Level", "Utility Knife", "Chalk Line"] },
+          { key: "size", label: "Size", type: "ENUM", options: ["16 ft", "25 ft", "30 ft", "7 in", "12 in", "24 in", "48 in", "16 oz", "20 oz", "22 oz", "Standard"] },
+        ],
+      },
+      {
+        slug: "ladders",
+        name: "Ladders",
+        attributes: [
+          { key: "ladderType", label: "Type", type: "ENUM", options: ["Step Ladder", "Extension Ladder", "Multi-Position"] },
+          { key: "height", label: "Height", type: "NUMBER", unit: "ft" },
+          { key: "material", label: "Material", type: "ENUM", options: ["Fiberglass", "Aluminum"] },
+          { key: "duty", label: "Duty rating", type: "ENUM", options: ["Type II (225 lb)", "Type I (250 lb)", "Type IA (300 lb)", "Type IAA (375 lb)"] },
         ],
       },
     ],

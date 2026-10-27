@@ -110,6 +110,7 @@ function OptionCell({ option, empty }: { option: Option | null; empty: string })
       <p className={`text-xs ${option.inStock ? "text-save" : "text-warn"}`}>
         {option.inStock ? "In stock" : "Out of stock"}
         {option.store && <span className="text-muted"> · {option.store.city}</span>}
+        {option.source !== "mock" && <span className="ml-1 rounded bg-ink px-1 py-px text-[10px] font-semibold text-white">LIVE</span>}
       </p>
     </div>
   );

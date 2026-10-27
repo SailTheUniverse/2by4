@@ -30,6 +30,16 @@ export const CATEGORY_CARRIERS: Record<string, string[]> = {
   fittings: BIG_BOX,
   "drills-drivers": BIG_BOX,
   "circular-saws": BIG_BOX,
+  "drywall-panels": ["home-depot", "lowes", "menards"],
+  "joint-compound-tape": BIG_BOX,
+  "concrete-mix": ["home-depot", "lowes", "menards", "ace-hardware"],
+  "mortar-stucco": ["home-depot", "lowes", "menards", "ace-hardware"],
+  "block-pavers": ["home-depot", "lowes", "menards"],
+  shingles: ["home-depot", "lowes", "menards"],
+  underlayment: ["home-depot", "lowes", "menards", "amazon"],
+  "miter-saws": BIG_BOX,
+  "hand-tools": BIG_BOX,
+  ladders: BIG_BOX,
 };
 
 const nmb = (gauge: number, cond: 2 | 3, length: number, price: number, brand = "Southwire"): ProductSeed => ({
@@ -56,6 +66,42 @@ const lumber = (
   specs: { nominalSize: size, length, treatment: treated ? "Pressure Treated" : "Untreated", species, grade },
   unit: ["lin ft", length],
   shippable: false,
+});
+
+const drywall = (name: string, brand: string, price: number, panelType: string, thickness: string, size = "4 ft x 8 ft", extra: Partial<ProductSeed> = {}): ProductSeed => ({
+  name: `${brand} ${thickness} x ${size} ${name}`,
+  brand,
+  category: "drywall-panels",
+  price,
+  specs: { panelType, thickness, size },
+  unit: ["sheet", 1],
+  shippable: false,
+  ...extra,
+});
+
+const bag = (category: string, brand: string, name: string, price: number, mixType: string, bagWeight: number, extra: Partial<ProductSeed> & { strength?: number } = {}): ProductSeed => {
+  const { strength, ...rest } = extra;
+  return {
+    name: `${brand} ${bagWeight} lb ${name}`,
+    brand,
+    category,
+    price,
+    specs: { mixType, bagWeight, ...(strength ? { strength } : {}) },
+    unit: ["lb", bagWeight],
+    shippable: false,
+    ...rest,
+  };
+};
+
+const shingle = (brand: string, line: string, color: string, price: number, style: string, coverage: number, windRating: number, extra: Partial<ProductSeed> = {}): ProductSeed => ({
+  name: `${brand} ${line} ${style} Shingles, ${color} (${coverage} sq ft/bundle)`,
+  brand,
+  category: "shingles",
+  price,
+  specs: { style, color, coverage, windRating },
+  unit: ["sq ft", coverage],
+  shippable: false,
+  ...extra,
 });
 
 export const PRODUCTS: ProductSeed[] = [
@@ -200,4 +246,110 @@ export const PRODUCTS: ProductSeed[] = [
   { name: "Ryobi ONE+ 18V 6-1/2 in Circular Saw (Tool Only)", brand: "Ryobi", category: "circular-saws", price: 79, specs: { power: "Cordless", bladeSize: "6-1/2 in", configuration: "Tool Only", brushless: false }, only: ["home-depot"] },
   { name: "Bauer 15 Amp 7-1/4 in Circular Saw with Laser", brand: "Bauer", category: "circular-saws", price: 49.99, specs: { power: "Corded", bladeSize: "7-1/4 in", configuration: "Corded", brushless: false }, only: ["harbor-freight"] },
   { name: "Hercules 20V Brushless 7-1/4 in Circular Saw Kit", brand: "Hercules", category: "circular-saws", price: 159.99, specs: { power: "Cordless", bladeSize: "7-1/4 in", configuration: "Kit (1 Battery)", brushless: true }, only: ["harbor-freight"] },
+
+  // ── More fasteners ──────────────────────────────────────
+  { name: "Grip-Rite #6 x 1-1/4 in Coarse-Thread Drywall Screws, 5 lb (approx. 1,500 ct)", brand: "Grip-Rite", category: "fasteners", price: 26.98, specs: { fastenerType: "Drywall Screws", length: 1.25, finish: "Coated", exterior: false }, unit: ["100 ct", 15] },
+  { name: "Grip-Rite #6 x 1-5/8 in Coarse-Thread Drywall Screws, 1 lb (approx. 220 ct)", brand: "Grip-Rite", category: "fasteners", price: 8.98, specs: { fastenerType: "Drywall Screws", length: 1.625, finish: "Coated", exterior: false }, unit: ["100 ct", 2.2] },
+  { name: "Grip-Rite 1-1/4 in Galvanized Roofing Nails, 5 lb (approx. 700 ct)", brand: "Grip-Rite", category: "fasteners", price: 17.98, specs: { fastenerType: "Roofing Nails", length: 1.25, finish: "Hot-Dip Galvanized", exterior: true }, unit: ["100 ct", 7] },
+  { name: "Bostitch 1-1/4 in Galvanized Coil Roofing Nails (7,200 ct)", brand: "Bostitch", category: "fasteners", price: 64.98, specs: { fastenerType: "Roofing Nails", length: 1.25, finish: "Hot-Dip Galvanized", exterior: true }, unit: ["100 ct", 72] },
+
+  // ── Drywall ─────────────────────────────────────────────
+  drywall("UltraLight Drywall Panel", "USG Sheetrock", 15.98, "Lightweight", "1/2 in"),
+  drywall("UltraLight Drywall Panel", "USG Sheetrock", 21.98, "Lightweight", "1/2 in", "4 ft x 12 ft"),
+  drywall("Regular Drywall Panel", "Gold Bond", 13.48, "Regular", "1/2 in", "4 ft x 8 ft", { exclude: ["home-depot"] }),
+  drywall("Regular Drywall Panel", "CertainTeed", 13.98, "Regular", "1/4 in"),
+  drywall("Regular Drywall Panel", "USG Sheetrock", 14.98, "Regular", "3/8 in"),
+  drywall("Moisture-Resistant Drywall Panel", "USG Sheetrock", 16.98, "Moisture-Resistant", "1/2 in"),
+  drywall("Mold Tough Drywall Panel", "USG Sheetrock", 19.48, "Mold & Moisture-Resistant", "1/2 in"),
+  drywall("XP Mold & Moisture-Resistant Drywall Panel", "Gold Bond", 19.98, "Mold & Moisture-Resistant", "1/2 in", "4 ft x 8 ft", { exclude: ["home-depot"] }),
+  drywall("Firecode X Drywall Panel", "USG Sheetrock", 17.98, "Fire-Rated (Type X)", "5/8 in"),
+  drywall("Fire-Shield Type X Drywall Panel", "Gold Bond", 18.48, "Fire-Rated (Type X)", "5/8 in", "4 ft x 12 ft", { exclude: ["home-depot"] }),
+
+  // ── Joint Compound & Tape ───────────────────────────────
+  { name: "USG Sheetrock All Purpose Pre-Mixed Joint Compound, 4.5 gal", brand: "USG Sheetrock", category: "joint-compound-tape", price: 21.98, specs: { productType: "All-Purpose Compound", form: "Pre-Mixed" }, unit: ["gal", 4.5], shippable: false },
+  { name: "USG Sheetrock Plus 3 Lightweight Joint Compound, 4.5 gal", brand: "USG Sheetrock", category: "joint-compound-tape", price: 23.98, specs: { productType: "Lightweight Compound", form: "Pre-Mixed" }, unit: ["gal", 4.5], shippable: false },
+  { name: "Gold Bond ProForm Lite Joint Compound, 4.5 gal", brand: "Gold Bond", category: "joint-compound-tape", price: 19.98, specs: { productType: "Lightweight Compound", form: "Pre-Mixed" }, unit: ["gal", 4.5], shippable: false, exclude: ["home-depot"] },
+  { name: "USG Sheetrock Easy Sand 45 Setting-Type Joint Compound, 18 lb", brand: "USG Sheetrock", category: "joint-compound-tape", price: 17.98, specs: { productType: "Setting-Type Compound", form: "Powder" }, unit: ["lb", 18] },
+  { name: "USG Sheetrock Paper Joint Tape, 2-1/16 in x 500 ft", brand: "USG Sheetrock", category: "joint-compound-tape", price: 6.98, specs: { productType: "Paper Tape", form: "Roll" }, unit: ["ft", 500] },
+  { name: "FibaTape Self-Adhesive Mesh Drywall Tape, 1-7/8 in x 300 ft", brand: "FibaTape", category: "joint-compound-tape", price: 9.98, specs: { productType: "Mesh Tape", form: "Roll" }, unit: ["ft", 300] },
+  { name: "ClarkDietrich 1-1/4 in x 8 ft Metal Drywall Corner Bead", brand: "ClarkDietrich", category: "joint-compound-tape", price: 3.48, specs: { productType: "Corner Bead", form: "Stick" }, unit: ["ft", 8], shippable: false },
+
+  // ── Concrete Mix ────────────────────────────────────────
+  bag("concrete-mix", "Quikrete", "Concrete Mix", 5.98, "Standard", 80, { strength: 4000 }),
+  bag("concrete-mix", "Quikrete", "Concrete Mix", 4.98, "Standard", 60, { strength: 4000 }),
+  bag("concrete-mix", "Quikrete", "Fast-Setting Concrete Mix", 7.98, "Fast-Setting", 50, { strength: 4000 }),
+  bag("concrete-mix", "Quikrete", "5000 Plus High-Strength Concrete Mix", 7.48, "High-Strength", 80, { strength: 5000 }),
+  bag("concrete-mix", "Quikrete", "Crack-Resistant Concrete Mix", 9.98, "Crack-Resistant", 80, { strength: 4000 }),
+  bag("concrete-mix", "Sakrete", "Concrete Mix", 5.78, "Standard", 80, { strength: 4000, exclude: ["home-depot"] }),
+  bag("concrete-mix", "Sakrete", "Fast Setting Concrete Mix", 7.68, "Fast-Setting", 50, { strength: 4000, exclude: ["home-depot"] }),
+
+  // ── Mortar, Sand & Stucco ───────────────────────────────
+  bag("mortar-stucco", "Quikrete", "Type S Mortar Mix", 9.48, "Type S Mortar", 80),
+  bag("mortar-stucco", "Quikrete", "Type N Mortar Mix", 8.98, "Type N Mortar", 80),
+  bag("mortar-stucco", "Quikrete", "Sand/Topping Mix", 7.48, "Sand/Topping Mix", 80),
+  bag("mortar-stucco", "Quikrete", "Base Coat Stucco", 10.98, "Stucco", 80),
+  bag("mortar-stucco", "Quikrete", "All-Purpose Sand", 5.48, "All-Purpose Sand", 50),
+  bag("mortar-stucco", "Sakrete", "Type S Mortar Mix", 9.28, "Type S Mortar", 80, { exclude: ["home-depot"] }),
+
+  // ── Block & Pavers ──────────────────────────────────────
+  { name: "8 in x 8 in x 16 in Standard Concrete Block", brand: "Masonry Stock", category: "block-pavers", price: 1.98, specs: { blockType: "Concrete Block (CMU)", size: "8 in x 8 in x 16 in", color: "Gray" }, shippable: false },
+  { name: "4 in x 8 in x 16 in Solid Concrete Block", brand: "Masonry Stock", category: "block-pavers", price: 1.78, specs: { blockType: "Concrete Block (CMU)", size: "4 in x 8 in x 16 in", color: "Gray" }, shippable: false },
+  { name: "2 in x 8 in x 16 in Concrete Cap Block", brand: "Masonry Stock", category: "block-pavers", price: 1.68, specs: { blockType: "Cap Block", size: "2 in x 8 in x 16 in", color: "Gray" }, shippable: false },
+  { name: "4 in x 8 in Red Concrete Paver", brand: "Masonry Stock", category: "block-pavers", price: 0.68, specs: { blockType: "Paver", size: "4 in x 8 in", color: "Red" }, shippable: false },
+  { name: "4 in x 8 in Charcoal Concrete Paver", brand: "Masonry Stock", category: "block-pavers", price: 0.72, specs: { blockType: "Paver", size: "4 in x 8 in", color: "Charcoal" }, shippable: false },
+  { name: "12 in x 12 in Gray Concrete Patio Stone", brand: "Masonry Stock", category: "block-pavers", price: 2.48, specs: { blockType: "Paver", size: "12 in x 12 in", color: "Gray" }, shippable: false },
+  { name: "Tan Retaining Wall Block (4 in x 11.75 in x 6.75 in)", brand: "Masonry Stock", category: "block-pavers", price: 2.38, specs: { blockType: "Retaining Wall Block", size: "4 in x 11.75 in x 6.75 in", color: "Tan" }, shippable: false },
+  { name: "Gray Retaining Wall Block (4 in x 11.75 in x 6.75 in)", brand: "Masonry Stock", category: "block-pavers", price: 2.28, specs: { blockType: "Retaining Wall Block", size: "4 in x 11.75 in x 6.75 in", color: "Gray" }, shippable: false },
+
+  // ── Shingles (unit price per sq ft of coverage) ─────────
+  shingle("Owens Corning", "Duration", "Onyx Black", 42.98, "Architectural", 32.8, 130),
+  shingle("Owens Corning", "Duration", "Driftwood", 42.98, "Architectural", 32.8, 130),
+  shingle("Owens Corning", "Supreme", "Estate Gray", 34.98, "3-Tab", 33.3, 60),
+  shingle("GAF", "Timberline HDZ", "Charcoal", 44.98, "Architectural", 33.3, 130, { exclude: ["menards"] }),
+  shingle("GAF", "Timberline HDZ", "Weathered Wood", 44.98, "Architectural", 33.3, 130, { exclude: ["menards"] }),
+  shingle("GAF", "Royal Sovereign", "Shasta White", 36.98, "3-Tab", 33.3, 60, { exclude: ["menards"] }),
+  shingle("CertainTeed", "Landmark", "Driftwood", 43.98, "Architectural", 32.8, 110, { exclude: ["home-depot"] }),
+
+  // ── Underlayment & Flashing ─────────────────────────────
+  { name: "Owens Corning Deck Defense Synthetic Roof Underlayment (1,000 sq ft)", brand: "Owens Corning", category: "underlayment", price: 109.98, specs: { productType: "Synthetic Underlayment", coverage: 1000 }, unit: ["sq ft", 1000] },
+  { name: "GAF FeltBuster Synthetic Roofing Underlayment (1,000 sq ft)", brand: "GAF", category: "underlayment", price: 99.98, specs: { productType: "Synthetic Underlayment", coverage: 1000 }, unit: ["sq ft", 1000], exclude: ["menards"] },
+  { name: "Grace Ice & Water Shield Roofing Underlayment (200 sq ft)", brand: "Grace", category: "underlayment", price: 129.98, specs: { productType: "Ice & Water Shield", coverage: 200 }, unit: ["sq ft", 200] },
+  { name: "Owens Corning WeatherLock G Ice & Water Barrier (200 sq ft)", brand: "Owens Corning", category: "underlayment", price: 99.98, specs: { productType: "Ice & Water Shield", coverage: 200 }, unit: ["sq ft", 200] },
+  { name: "#15 Asphalt Saturated Roofing Felt (432 sq ft)", brand: "Mill Stock", category: "underlayment", price: 24.98, specs: { productType: "Felt #15", coverage: 432 }, unit: ["sq ft", 432], shippable: false },
+  { name: "#30 Asphalt Saturated Roofing Felt (216 sq ft)", brand: "Mill Stock", category: "underlayment", price: 26.98, specs: { productType: "Felt #30", coverage: 216 }, unit: ["sq ft", 216], shippable: false },
+  { name: "Amerimax 10 ft White Aluminum Roof Drip Edge", brand: "Amerimax", category: "underlayment", price: 8.98, specs: { productType: "Drip Edge" }, unit: ["ft", 10], shippable: false },
+
+  // ── Miter Saws ──────────────────────────────────────────
+  { name: "DeWalt 12 in Double-Bevel Sliding Compound Miter Saw", brand: "DeWalt", model: "DWS780", category: "miter-saws", price: 599, specs: { bladeSize: "12 in", bevel: "Dual Bevel", sliding: true, power: "Corded" } },
+  { name: "DeWalt 15 Amp 10 in Single-Bevel Compound Miter Saw", brand: "DeWalt", model: "DWS713", category: "miter-saws", price: 229, specs: { bladeSize: "10 in", bevel: "Single Bevel", sliding: false, power: "Corded" } },
+  { name: "Metabo HPT 15 Amp 10 in Single-Bevel Compound Miter Saw", brand: "Metabo HPT", category: "miter-saws", price: 149, specs: { bladeSize: "10 in", bevel: "Single Bevel", sliding: false, power: "Corded" } },
+  { name: "Milwaukee M18 FUEL 10 in Dual-Bevel Sliding Miter Saw (Tool Only)", brand: "Milwaukee", model: "2734-20", category: "miter-saws", price: 649, specs: { bladeSize: "10 in", bevel: "Dual Bevel", sliding: true, power: "Cordless" }, exclude: ["lowes"] },
+  { name: "Ryobi ONE+ 18V 7-1/4 in Sliding Compound Miter Saw (Tool Only)", brand: "Ryobi", category: "miter-saws", price: 199, specs: { bladeSize: "7-1/4 in", bevel: "Single Bevel", sliding: true, power: "Cordless" }, only: ["home-depot"] },
+  { name: "Kobalt 15 Amp 12 in Dual-Bevel Sliding Compound Miter Saw", brand: "Kobalt", category: "miter-saws", price: 329, specs: { bladeSize: "12 in", bevel: "Dual Bevel", sliding: true, power: "Corded" }, only: ["lowes"] },
+  { name: "Hercules 12 in Dual-Bevel Sliding Compound Miter Saw", brand: "Hercules", category: "miter-saws", price: 359.99, specs: { bladeSize: "12 in", bevel: "Dual Bevel", sliding: true, power: "Corded" }, only: ["harbor-freight"] },
+  { name: "Chicago Electric 10 in Compound Miter Saw", brand: "Chicago Electric", category: "miter-saws", price: 99.99, specs: { bladeSize: "10 in", bevel: "Single Bevel", sliding: false, power: "Corded" }, only: ["harbor-freight"] },
+
+  // ── Hand Tools ──────────────────────────────────────────
+  { name: "Stanley PowerLock 25 ft Tape Measure", brand: "Stanley", category: "hand-tools", price: 19.98, specs: { toolType: "Tape Measure", size: "25 ft" } },
+  { name: "Milwaukee 25 ft Compact Wide Blade Tape Measure", brand: "Milwaukee", category: "hand-tools", price: 24.97, specs: { toolType: "Tape Measure", size: "25 ft" }, exclude: ["lowes"] },
+  { name: "DeWalt 25 ft Tape Measure", brand: "DeWalt", category: "hand-tools", price: 21.98, specs: { toolType: "Tape Measure", size: "25 ft" } },
+  { name: "Pittsburgh 25 ft Tape Measure", brand: "Pittsburgh", category: "hand-tools", price: 6.99, specs: { toolType: "Tape Measure", size: "25 ft" }, only: ["harbor-freight"] },
+  { name: "Estwing 22 oz Solid Steel Framing Hammer", brand: "Estwing", category: "hand-tools", price: 39.98, specs: { toolType: "Framing Hammer", size: "22 oz" } },
+  { name: "Estwing 16 oz Solid Steel Claw Hammer", brand: "Estwing", category: "hand-tools", price: 32.98, specs: { toolType: "Claw Hammer", size: "16 oz" } },
+  { name: "Pittsburgh 20 oz Fiberglass Claw Hammer", brand: "Pittsburgh", category: "hand-tools", price: 9.99, specs: { toolType: "Claw Hammer", size: "20 oz" }, only: ["harbor-freight"] },
+  { name: "Swanson 7 in Speed Square", brand: "Swanson", category: "hand-tools", price: 9.98, specs: { toolType: "Speed Square", size: "7 in" } },
+  { name: "Empire 48 in True Blue Box Level", brand: "Empire", category: "hand-tools", price: 42.98, specs: { toolType: "Level", size: "48 in" } },
+  { name: "Johnson 24 in Aluminum Box Level", brand: "Johnson", category: "hand-tools", price: 19.98, specs: { toolType: "Level", size: "24 in" } },
+  { name: "Stanley FatMax Retractable Utility Knife", brand: "Stanley", category: "hand-tools", price: 14.98, specs: { toolType: "Utility Knife", size: "Standard" } },
+  { name: "Irwin Strait-Line 100 ft Chalk Reel", brand: "Irwin", category: "hand-tools", price: 12.98, specs: { toolType: "Chalk Line", size: "Standard" } },
+
+  // ── Ladders ─────────────────────────────────────────────
+  { name: "Werner 6 ft Fiberglass Step Ladder, Type II (225 lb)", brand: "Werner", category: "ladders", price: 89, specs: { ladderType: "Step Ladder", height: 6, material: "Fiberglass", duty: "Type II (225 lb)" } },
+  { name: "Werner 6 ft Fiberglass Step Ladder, Type IA (300 lb)", brand: "Werner", category: "ladders", price: 149, specs: { ladderType: "Step Ladder", height: 6, material: "Fiberglass", duty: "Type IA (300 lb)" } },
+  { name: "Werner 8 ft Fiberglass Step Ladder, Type IA (300 lb)", brand: "Werner", category: "ladders", price: 199, specs: { ladderType: "Step Ladder", height: 8, material: "Fiberglass", duty: "Type IA (300 lb)" } },
+  { name: "Louisville Ladder 6 ft Fiberglass Step Ladder, Type IAA (375 lb)", brand: "Louisville Ladder", category: "ladders", price: 189, specs: { ladderType: "Step Ladder", height: 6, material: "Fiberglass", duty: "Type IAA (375 lb)" } },
+  { name: "Werner 24 ft Aluminum Extension Ladder, Type II (225 lb)", brand: "Werner", category: "ladders", price: 229, specs: { ladderType: "Extension Ladder", height: 24, material: "Aluminum", duty: "Type II (225 lb)" }, shippable: false },
+  { name: "Werner 28 ft Fiberglass Extension Ladder, Type IA (300 lb)", brand: "Werner", category: "ladders", price: 399, specs: { ladderType: "Extension Ladder", height: 28, material: "Fiberglass", duty: "Type IA (300 lb)" }, shippable: false },
+  { name: "Little Giant Velocity 22 ft Multi-Position Ladder, Type IA (300 lb)", brand: "Little Giant", category: "ladders", price: 299, specs: { ladderType: "Multi-Position", height: 22, material: "Aluminum", duty: "Type IA (300 lb)" } },
+  { name: "Franklin 6 ft Fiberglass Step Ladder, Type II (225 lb)", brand: "Franklin", category: "ladders", price: 79.99, specs: { ladderType: "Step Ladder", height: 6, material: "Fiberglass", duty: "Type II (225 lb)" }, only: ["harbor-freight"] },
 ];

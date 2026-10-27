@@ -2,6 +2,7 @@ import Form from "next/form";
 import Link from "next/link";
 import { Suspense } from "react";
 import { getCategoryTree } from "@/lib/catalog";
+import { getCurrentListId, getListSummary } from "@/lib/lists";
 import { ZipControl } from "@/components/ZipControl";
 
 export function Header() {
@@ -31,9 +32,12 @@ export function Header() {
           </div>
         </Form>
 
-        <div className="ml-auto sm:ml-0">
+        <div className="ml-auto flex items-center gap-2 sm:ml-0">
           <Suspense fallback={<div className="h-9 w-36 animate-pulse rounded-lg bg-paper" />}>
             <ZipControl />
+          </Suspense>
+          <Suspense fallback={<ListLinkShell count={null} />}>
+            <ListLink />
           </Suspense>
         </div>
       </div>
@@ -59,6 +63,25 @@ async function CategoryNav() {
         ))}
       </ul>
     </nav>
+  );
+}
+
+async function ListLink() {
+  const list = await getListSummary(await getCurrentListId());
+  return <ListLinkShell count={list?._count.items ?? 0} />;
+}
+
+function ListLinkShell({ count }: { count: number | null }) {
+  return (
+    <Link href="/list" className="flex items-center gap-1.5 rounded-lg border border-line px-3 py-2 text-sm hover:border-ink">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+        <path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01" strokeLinecap="round" />
+      </svg>
+      <span className="hidden sm:inline">List</span>
+      {count !== null && count > 0 && (
+        <span className="tabular rounded-full bg-accent px-1.5 text-xs font-semibold text-ink">{count}</span>
+      )}
+    </Link>
   );
 }
 

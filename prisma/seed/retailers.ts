@@ -2,6 +2,7 @@ export interface RetailerSeed {
   slug: string;
   name: string;
   websiteUrl: string;
+  /** Series color in charts and the dot beside the name. From a colorblind-checked categorical palette. */
   color: string;
   hasStores: boolean;
   /** Builds a retailer search URL. Real listings will store product-page URLs. */
@@ -13,12 +14,12 @@ export interface RetailerSeed {
 const q = encodeURIComponent;
 
 export const RETAILERS: RetailerSeed[] = [
-  { slug: "home-depot", name: "Home Depot", websiteUrl: "https://www.homedepot.com", color: "#f96302", hasStores: true, searchUrl: (s) => `https://www.homedepot.com/s/${q(s)}` },
-  { slug: "lowes", name: "Lowe's", websiteUrl: "https://www.lowes.com", color: "#004990", hasStores: true, searchUrl: (s) => `https://www.lowes.com/search?searchTerm=${q(s)}` },
-  { slug: "menards", name: "Menards", websiteUrl: "https://www.menards.com", color: "#0b8a3e", hasStores: true, zones: ["4", "5", "6"], searchUrl: (s) => `https://www.menards.com/main/search.html?search=${q(s)}` },
-  { slug: "ace-hardware", name: "Ace Hardware", websiteUrl: "https://www.acehardware.com", color: "#d40029", hasStores: true, searchUrl: (s) => `https://www.acehardware.com/search?query=${q(s)}` },
-  { slug: "harbor-freight", name: "Harbor Freight", websiteUrl: "https://www.harborfreight.com", color: "#c8102e", hasStores: true, searchUrl: (s) => `https://www.harborfreight.com/search?q=${q(s)}` },
-  { slug: "amazon", name: "Amazon", websiteUrl: "https://www.amazon.com", color: "#232f3e", hasStores: false, searchUrl: (s) => `https://www.amazon.com/s?k=${q(s)}` },
+  { slug: "home-depot", name: "Home Depot", websiteUrl: "https://www.homedepot.com", color: "#eb6834", hasStores: true, searchUrl: (s) => `https://www.homedepot.com/s/${q(s)}` },
+  { slug: "lowes", name: "Lowe's", websiteUrl: "https://www.lowes.com", color: "#2a78d6", hasStores: true, searchUrl: (s) => `https://www.lowes.com/search?searchTerm=${q(s)}` },
+  { slug: "menards", name: "Menards", websiteUrl: "https://www.menards.com", color: "#1baf7a", hasStores: true, zones: ["4", "5", "6"], searchUrl: (s) => `https://www.menards.com/main/search.html?search=${q(s)}` },
+  { slug: "ace-hardware", name: "Ace Hardware", websiteUrl: "https://www.acehardware.com", color: "#e87ba4", hasStores: true, searchUrl: (s) => `https://www.acehardware.com/search?query=${q(s)}` },
+  { slug: "harbor-freight", name: "Harbor Freight", websiteUrl: "https://www.harborfreight.com", color: "#008300", hasStores: true, searchUrl: (s) => `https://www.harborfreight.com/search?q=${q(s)}` },
+  { slug: "amazon", name: "Amazon", websiteUrl: "https://www.amazon.com", color: "#eda100", hasStores: false, searchUrl: (s) => `https://www.amazon.com/s?k=${q(s)}` },
 ];
 
 /** Three metro areas per ZIP zone; every store retailer gets one store in each. */

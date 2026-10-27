@@ -50,7 +50,7 @@ export function PriceTable({ product, hasZip }: { product: PricedProduct; hasZip
                     href={r.url}
                     target="_blank"
                     rel="noopener noreferrer nofollow"
-                    className="inline-block rounded-lg border border-line px-3 py-1.5 font-medium whitespace-nowrap hover:border-ink"
+                    className="inline-block rounded-lg border border-line px-3 py-1.5 font-medium whitespace-nowrap hover:border-accent"
                   >
                     View ↗
                   </a>

@@ -173,3 +173,10 @@ model ProjectItem {
 
   @@unique([listId, productId])
 }
+
+// Small key/value store for app bookkeeping, e.g. which version of the sample
+// catalog is loaded (so deploys can reseed when the seed data changes).
+model AppSetting {
+  key   String @id
+  value String
+}

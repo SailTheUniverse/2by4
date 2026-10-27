@@ -9,12 +9,12 @@ import { getZip } from "@/lib/zip";
 export default function HomePage() {
   return (
     <div className="space-y-12">
-      <section className="rounded-2xl bg-ink px-6 py-10 text-white sm:px-10 sm:py-14">
-        <p className="text-sm font-semibold uppercase tracking-widest text-accent">Price check before you haul</p>
+      <section className="rounded-2xl bg-gradient-to-br from-[#2e1065] via-[#4c1d95] to-[#6d28d9] px-6 py-10 text-white sm:px-10 sm:py-14">
+        <p className="text-sm font-semibold uppercase tracking-widest text-accent-bright">Price check before you haul</p>
         <h1 className="mt-3 max-w-2xl text-3xl font-bold tracking-tight sm:text-5xl">
           The best price on building materials, across every store.
         </h1>
-        <p className="mt-4 max-w-xl text-white/70">
+        <p className="mt-4 max-w-xl text-white/80">
           Compare Home Depot, Lowe&apos;s, Menards, Ace, Harbor Freight and Amazon side by side, with real unit
           prices per foot, per sheet and per piece.
         </p>
@@ -29,7 +29,7 @@ export default function HomePage() {
             placeholder="Try “12/2 Romex” or “pressure treated 2x6”"
             className="min-w-0 flex-1 rounded-lg bg-white px-4 py-3 text-ink outline-none"
           />
-          <button type="submit" className="rounded-lg bg-accent px-5 font-semibold text-ink hover:brightness-95">
+          <button type="submit" className="rounded-lg bg-accent-bright px-5 font-semibold text-ink hover:bg-white">
             Compare
           </button>
         </Form>

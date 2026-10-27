@@ -19,12 +19,12 @@ export function ProductCard({ product, highlights = [] }: { product: PricedProdu
   const { prices } = product;
   const best = prices.best;
   const unit = product.unitQty !== 1 ? formatUnitPrice(product.unitPrice, product.unitLabel) : null;
-  const savingsPct = prices.highestTotal ? Math.round((prices.savings / prices.highestTotal) * 100) : 0;
+  const savingsPct = prices.highestPrice ? Math.round((prices.savings / prices.highestPrice) * 100) : 0;
 
   return (
     <Link
       href={`/p/${product.slug}`}
-      className="group flex gap-4 rounded-xl border border-line bg-surface p-4 transition hover:border-ink/40 hover:shadow-sm"
+      className="group flex gap-4 rounded-xl border border-line bg-surface p-4 transition hover:border-accent/50 hover:shadow-sm"
     >
       <ProductThumb product={product} />
       <div className="flex min-w-0 flex-1 flex-col gap-2 sm:flex-row sm:gap-4">

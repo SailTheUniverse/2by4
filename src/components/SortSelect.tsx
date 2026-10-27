@@ -16,7 +16,7 @@ export function SortSelect({ value, hrefs }: { value: SortKey; hrefs: Record<Sor
         value={value}
         disabled={pending}
         onChange={(e) => startTransition(() => router.push(hrefs[e.target.value as SortKey], { scroll: false }))}
-        className="rounded-lg border border-line bg-surface px-2 py-1.5 text-sm outline-none focus:border-ink"
+        className="rounded-lg border border-line bg-surface px-2 py-1.5 text-sm outline-none focus:border-accent"
       >
         {Object.entries(SORTS).map(([k, label]) => (
           <option key={k} value={k}>

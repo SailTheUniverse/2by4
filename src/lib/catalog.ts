@@ -165,8 +165,9 @@ export async function getTopSavings(zip: string | null, limit = 8) {
   const products = await loadProducts({}, zip);
   return products
     .map((p) => priceProduct(p))
-    .filter((p) => p.prices.inStockCount >= 2 && p.prices.highestTotal)
-    .sort((a, b) => b.prices.savings / b.prices.highestTotal! - a.prices.savings / a.prices.highestTotal!)
+    // Skip small parts: a few cents' difference on a $1 item isn't a deal worth featuring
+    .filter((p) => p.prices.inStockCount >= 2 && p.prices.highestPrice && (p.prices.bestTotal ?? 0) >= 10)
+    .sort((a, b) => b.prices.savings / b.prices.highestPrice! - a.prices.savings / a.prices.highestPrice!)
     .slice(0, limit);
 }
 

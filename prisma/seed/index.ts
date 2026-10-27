@@ -1,5 +1,6 @@
 // Seeds the database with sample categories, retailers, stores, products and
-// mock prices. Safe to re-run: it wipes catalog data first.
+// mock prices. Safe to re-run: it wipes catalog data first, but keeps project
+// lists (their items are re-linked to the new products by slug).
 //   npx prisma db seed
 import "dotenv/config";
 import { db } from "../../src/lib/db";
@@ -9,6 +10,7 @@ import { refreshPrices } from "../../src/lib/refresh";
 import { CATEGORIES, type CategorySeed } from "./categories";
 import { CATEGORY_CARRIERS, PRODUCTS } from "./products";
 import { METROS, RETAILERS } from "./retailers";
+import { CATALOG_KEY, catalogVersion } from "./version";
 
 function slugify(s: string) {
   return s
@@ -44,6 +46,10 @@ async function seedCategories(nodes: CategorySeed[], parentId: string | null = n
 }
 
 async function main() {
+  const savedItems = await db.projectItem.findMany({
+    select: { listId: true, quantity: true, product: { select: { slug: true } } },
+  });
+
   console.log("Clearing existing data…");
   await db.pricePoint.deleteMany();
   await db.offer.deleteMany();
@@ -115,13 +121,28 @@ async function main() {
     });
   }
 
+  if (savedItems.length) {
+    const ids = new Map((await db.product.findMany({ select: { id: true, slug: true } })).map((p) => [p.slug, p.id]));
+    const kept = savedItems.filter((i) => ids.has(i.product.slug));
+    await db.projectItem.createMany({
+      data: kept.map((i) => ({ listId: i.listId, productId: ids.get(i.product.slug)!, quantity: i.quantity })),
+    });
+    console.log(`  Kept ${kept.length}/${savedItems.length} project list items`);
+  }
+
   console.log("Price history (90 days)…");
-  const points = await seedHistory(90, 3);
+  const points = await seedHistory(90, 5);
   console.log(`  ${points} history points`);
 
   console.log("Current prices…");
   const offers = await refreshPrices(db);
-  console.log(`Seeded ${PRODUCTS.length} products with ${offers} offers.`);
+  const version = catalogVersion();
+  await db.appSetting.upsert({
+    where: { key: CATALOG_KEY },
+    create: { key: CATALOG_KEY, value: version },
+    update: { value: version },
+  });
+  console.log(`Seeded ${PRODUCTS.length} products with ${offers} offers (catalog ${version}).`);
 }
 
 /** Back-fill mock price history: one point every `step` days for the last `days` days. */

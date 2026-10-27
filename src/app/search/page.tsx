@@ -44,7 +44,7 @@ async function SearchResults({ searchParams }: PageProps<"/search">) {
         <div className="flex flex-wrap items-center gap-2 text-sm">
           <span className="text-muted">Narrow to a category to filter by specs:</span>
           {[...categories.entries()].map(([slug, c]) => (
-            <Link key={slug} href={`/c/${slug}`} className="rounded-full border border-line bg-surface px-3 py-1 hover:border-ink">
+            <Link key={slug} href={`/c/${slug}`} className="rounded-full border border-line bg-surface px-3 py-1 hover:border-accent">
               {c.name} <span className="text-muted">{c.count}</span>
             </Link>
           ))}

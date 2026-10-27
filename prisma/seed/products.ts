@@ -26,12 +26,25 @@ export const CATEGORY_CARRIERS: Record<string, string[]> = {
   "dimensional-lumber": ["home-depot", "lowes", "menards", "ace-hardware"],
   "plywood-osb": ["home-depot", "lowes", "menards"],
   fasteners: BIG_BOX,
-  pipe: BIG_BOX,
-  fittings: BIG_BOX,
+  "load-centers": BIG_BOX,
+  meters: ["home-depot", "lowes", "menards", "amazon"],
+  "electrical-boxes": BIG_BOX,
+  conduit: BIG_BOX,
+  "pressure-treated-lumber": ["home-depot", "lowes", "menards", "ace-hardware"],
+  "framing-connectors": BIG_BOX,
+  "rebar-mesh": BIG_BOX,
+  flashing: BIG_BOX,
+  "pex-a": BIG_BOX,
+  "pex-b": BIG_BOX,
+  copper: BIG_BOX,
+  pvc: BIG_BOX,
+  cpvc: BIG_BOX,
+  "push-to-connect": BIG_BOX,
   "drills-drivers": BIG_BOX,
   "circular-saws": BIG_BOX,
   "drywall-panels": ["home-depot", "lowes", "menards"],
-  "joint-compound-tape": BIG_BOX,
+  "joint-compound": BIG_BOX,
+  "drywall-tape-bead": BIG_BOX,
   "concrete-mix": ["home-depot", "lowes", "menards", "ace-hardware"],
   "mortar-stucco": ["home-depot", "lowes", "menards", "ace-hardware"],
   "block-pavers": ["home-depot", "lowes", "menards"],
@@ -61,9 +74,9 @@ const lumber = (
 ): ProductSeed => ({
   name: `${size} x ${length} ft ${treated ? "Pressure-Treated Ground Contact" : grade} ${species} Lumber`,
   brand: "Mill Stock",
-  category: "dimensional-lumber",
+  category: treated ? "pressure-treated-lumber" : "dimensional-lumber",
   price,
-  specs: { nominalSize: size, length, treatment: treated ? "Pressure Treated" : "Untreated", species, grade },
+  specs: treated ? { nominalSize: size, length, rating: "Ground Contact", species } : { nominalSize: size, length, species, grade },
   unit: ["lin ft", length],
   shippable: false,
 });
@@ -203,26 +216,7 @@ export const PRODUCTS: ProductSeed[] = [
   { name: "GRK RSS 5/16 in x 4 in Structural Screws (50 ct)", brand: "GRK", category: "fasteners", price: 49.98, specs: { fastenerType: "Structural Screws", length: 4, finish: "Coated", exterior: true }, unit: ["100 ct", 0.5] },
   { name: "Simpson Strong-Tie Strong-Drive SDWS 3 in Timber Screws (50 ct)", brand: "Simpson Strong-Tie", category: "fasteners", price: 32.98, specs: { fastenerType: "Structural Screws", length: 3, finish: "Coated", exterior: true }, unit: ["100 ct", 0.5] },
 
-  // ── Pipe & Tubing ───────────────────────────────────────
-  { name: "SharkBite 1/2 in x 100 ft Red PEX-B Pipe", brand: "SharkBite", category: "pipe", price: 42.98, specs: { pipeMaterial: "PEX-B", diameter: "1/2 in", length: 100, color: "Red" }, unit: ["ft", 100] },
-  { name: "SharkBite 1/2 in x 100 ft Blue PEX-B Pipe", brand: "SharkBite", category: "pipe", price: 42.98, specs: { pipeMaterial: "PEX-B", diameter: "1/2 in", length: 100, color: "Blue" }, unit: ["ft", 100] },
-  { name: "Apollo 3/4 in x 100 ft Red PEX-B Pipe", brand: "Apollo", category: "pipe", price: 64.98, specs: { pipeMaterial: "PEX-B", diameter: "3/4 in", length: 100, color: "Red" }, unit: ["ft", 100], exclude: ["lowes"] },
-  { name: "Uponor AquaPEX 1/2 in x 100 ft White PEX-A Pipe", brand: "Uponor", category: "pipe", price: 62.98, specs: { pipeMaterial: "PEX-A", diameter: "1/2 in", length: 100, color: "White" }, unit: ["ft", 100] },
-  { name: "Uponor AquaPEX 3/4 in x 100 ft White PEX-A Pipe", brand: "Uponor", category: "pipe", price: 109.98, specs: { pipeMaterial: "PEX-A", diameter: "3/4 in", length: 100, color: "White" }, unit: ["ft", 100] },
-  { name: "Charlotte Pipe 1/2 in x 10 ft PVC Schedule 40 Pipe", brand: "Charlotte Pipe", category: "pipe", price: 4.48, specs: { pipeMaterial: "PVC Sch 40", diameter: "1/2 in", length: 10, color: "White" }, unit: ["ft", 10], shippable: false },
-  { name: "Charlotte Pipe 3/4 in x 10 ft PVC Schedule 40 Pipe", brand: "Charlotte Pipe", category: "pipe", price: 5.98, specs: { pipeMaterial: "PVC Sch 40", diameter: "3/4 in", length: 10, color: "White" }, unit: ["ft", 10], shippable: false },
-  { name: "Mueller 1/2 in x 10 ft Copper Type M Pipe", brand: "Mueller", category: "pipe", price: 26.98, specs: { pipeMaterial: "Copper Type M", diameter: "1/2 in", length: 10, color: "Copper" }, unit: ["ft", 10], shippable: false },
-  { name: "Mueller 3/4 in x 10 ft Copper Type L Pipe", brand: "Mueller", category: "pipe", price: 62.98, specs: { pipeMaterial: "Copper Type L", diameter: "3/4 in", length: 10, color: "Copper" }, unit: ["ft", 10], shippable: false },
-
-  // ── Fittings & Valves ───────────────────────────────────
-  { name: "SharkBite 1/2 in Push-to-Connect Brass 90° Elbow", brand: "SharkBite", category: "fittings", price: 9.98, specs: { fittingType: "90° Elbow", size: "1/2 in", connection: "Push-to-Connect", material: "Brass" } },
-  { name: "SharkBite 1/2 in Push-to-Connect Brass Coupling", brand: "SharkBite", category: "fittings", price: 8.48, specs: { fittingType: "Coupling", size: "1/2 in", connection: "Push-to-Connect", material: "Brass" } },
-  { name: "SharkBite 3/4 in Push-to-Connect Brass Tee", brand: "SharkBite", category: "fittings", price: 19.98, specs: { fittingType: "Tee", size: "3/4 in", connection: "Push-to-Connect", material: "Brass" } },
-  { name: "SharkBite 3/4 in Push-to-Connect Ball Valve", brand: "SharkBite", category: "fittings", price: 29.98, specs: { fittingType: "Ball Valve", size: "3/4 in", connection: "Push-to-Connect", material: "Brass" } },
-  { name: "Apollo 1/2 in PEX Crimp Brass 90° Elbow (10-Pack)", brand: "Apollo", category: "fittings", price: 12.98, specs: { fittingType: "90° Elbow", size: "1/2 in", connection: "Crimp", material: "Brass" }, unit: ["each", 10], exclude: ["lowes"] },
-  { name: "Apollo 1/2 in Copper PEX Crimp Rings (50-Pack)", brand: "Apollo", category: "fittings", price: 11.98, specs: { fittingType: "Crimp Ring", size: "1/2 in", connection: "Crimp", material: "Copper" }, unit: ["each", 50], exclude: ["lowes"] },
-  { name: "Mueller 1/2 in Copper 90° Sweat Elbow (10-Pack)", brand: "Mueller", category: "fittings", price: 15.98, specs: { fittingType: "90° Elbow", size: "1/2 in", connection: "Sweat/Solder", material: "Copper" }, unit: ["each", 10] },
-  { name: "Charlotte Pipe 1/2 in PVC Sch 40 90° Elbow (10-Pack)", brand: "Charlotte Pipe", category: "fittings", price: 5.48, specs: { fittingType: "90° Elbow", size: "1/2 in", connection: "Solvent Weld", material: "PVC" }, unit: ["each", 10] },
+  // (Plumbing lives in its own section below, organized by material system.)
 
   // ── Drills & Drivers ────────────────────────────────────
   { name: "DeWalt 20V MAX Cordless Drill/Driver Kit with 2 Batteries", brand: "DeWalt", model: "DCD771C2", category: "drills-drivers", price: 99, specs: { toolType: "Drill/Driver", voltage: "20V", configuration: "Kit (2 Batteries)", brushless: false } },
@@ -265,14 +259,14 @@ export const PRODUCTS: ProductSeed[] = [
   drywall("Firecode X Drywall Panel", "USG Sheetrock", 17.98, "Fire-Rated (Type X)", "5/8 in"),
   drywall("Fire-Shield Type X Drywall Panel", "Gold Bond", 18.48, "Fire-Rated (Type X)", "5/8 in", "4 ft x 12 ft", { exclude: ["home-depot"] }),
 
-  // ── Joint Compound & Tape ───────────────────────────────
-  { name: "USG Sheetrock All Purpose Pre-Mixed Joint Compound, 4.5 gal", brand: "USG Sheetrock", category: "joint-compound-tape", price: 21.98, specs: { productType: "All-Purpose Compound", form: "Pre-Mixed" }, unit: ["gal", 4.5], shippable: false },
-  { name: "USG Sheetrock Plus 3 Lightweight Joint Compound, 4.5 gal", brand: "USG Sheetrock", category: "joint-compound-tape", price: 23.98, specs: { productType: "Lightweight Compound", form: "Pre-Mixed" }, unit: ["gal", 4.5], shippable: false },
-  { name: "Gold Bond ProForm Lite Joint Compound, 4.5 gal", brand: "Gold Bond", category: "joint-compound-tape", price: 19.98, specs: { productType: "Lightweight Compound", form: "Pre-Mixed" }, unit: ["gal", 4.5], shippable: false, exclude: ["home-depot"] },
-  { name: "USG Sheetrock Easy Sand 45 Setting-Type Joint Compound, 18 lb", brand: "USG Sheetrock", category: "joint-compound-tape", price: 17.98, specs: { productType: "Setting-Type Compound", form: "Powder" }, unit: ["lb", 18] },
-  { name: "USG Sheetrock Paper Joint Tape, 2-1/16 in x 500 ft", brand: "USG Sheetrock", category: "joint-compound-tape", price: 6.98, specs: { productType: "Paper Tape", form: "Roll" }, unit: ["ft", 500] },
-  { name: "FibaTape Self-Adhesive Mesh Drywall Tape, 1-7/8 in x 300 ft", brand: "FibaTape", category: "joint-compound-tape", price: 9.98, specs: { productType: "Mesh Tape", form: "Roll" }, unit: ["ft", 300] },
-  { name: "ClarkDietrich 1-1/4 in x 8 ft Metal Drywall Corner Bead", brand: "ClarkDietrich", category: "joint-compound-tape", price: 3.48, specs: { productType: "Corner Bead", form: "Stick" }, unit: ["ft", 8], shippable: false },
+  // ── Joint Compound / Tape & Corner Bead ─────────────────
+  { name: "USG Sheetrock All Purpose Pre-Mixed Joint Compound, 4.5 gal", brand: "USG Sheetrock", category: "joint-compound", price: 21.98, specs: { productType: "All-Purpose", form: "Pre-Mixed" }, unit: ["gal", 4.5], shippable: false },
+  { name: "USG Sheetrock Plus 3 Lightweight Joint Compound, 4.5 gal", brand: "USG Sheetrock", category: "joint-compound", price: 23.98, specs: { productType: "Lightweight", form: "Pre-Mixed" }, unit: ["gal", 4.5], shippable: false },
+  { name: "Gold Bond ProForm Lite Joint Compound, 4.5 gal", brand: "Gold Bond", category: "joint-compound", price: 19.98, specs: { productType: "Lightweight", form: "Pre-Mixed" }, unit: ["gal", 4.5], shippable: false, exclude: ["home-depot"] },
+  { name: "USG Sheetrock Easy Sand 45 Setting-Type Joint Compound, 18 lb", brand: "USG Sheetrock", category: "joint-compound", price: 17.98, specs: { productType: "Setting-Type", form: "Powder" }, unit: ["lb", 18] },
+  { name: "USG Sheetrock Paper Joint Tape, 2-1/16 in x 500 ft", brand: "USG Sheetrock", category: "drywall-tape-bead", price: 6.98, specs: { productType: "Paper Tape" }, unit: ["ft", 500] },
+  { name: "FibaTape Self-Adhesive Mesh Drywall Tape, 1-7/8 in x 300 ft", brand: "FibaTape", category: "drywall-tape-bead", price: 9.98, specs: { productType: "Mesh Tape" }, unit: ["ft", 300] },
+  { name: "ClarkDietrich 1-1/4 in x 8 ft Metal Drywall Corner Bead", brand: "ClarkDietrich", category: "drywall-tape-bead", price: 3.48, specs: { productType: "Metal Corner Bead" }, unit: ["ft", 8], shippable: false },
 
   // ── Concrete Mix ────────────────────────────────────────
   bag("concrete-mix", "Quikrete", "Concrete Mix", 5.98, "Standard", 80, { strength: 4000 }),
@@ -310,14 +304,13 @@ export const PRODUCTS: ProductSeed[] = [
   shingle("GAF", "Royal Sovereign", "Shasta White", 36.98, "3-Tab", 33.3, 60, { exclude: ["menards"] }),
   shingle("CertainTeed", "Landmark", "Driftwood", 43.98, "Architectural", 32.8, 110, { exclude: ["home-depot"] }),
 
-  // ── Underlayment & Flashing ─────────────────────────────
+  // ── Underlayment ────────────────────────────────────────
   { name: "Owens Corning Deck Defense Synthetic Roof Underlayment (1,000 sq ft)", brand: "Owens Corning", category: "underlayment", price: 109.98, specs: { productType: "Synthetic Underlayment", coverage: 1000 }, unit: ["sq ft", 1000] },
   { name: "GAF FeltBuster Synthetic Roofing Underlayment (1,000 sq ft)", brand: "GAF", category: "underlayment", price: 99.98, specs: { productType: "Synthetic Underlayment", coverage: 1000 }, unit: ["sq ft", 1000], exclude: ["menards"] },
   { name: "Grace Ice & Water Shield Roofing Underlayment (200 sq ft)", brand: "Grace", category: "underlayment", price: 129.98, specs: { productType: "Ice & Water Shield", coverage: 200 }, unit: ["sq ft", 200] },
   { name: "Owens Corning WeatherLock G Ice & Water Barrier (200 sq ft)", brand: "Owens Corning", category: "underlayment", price: 99.98, specs: { productType: "Ice & Water Shield", coverage: 200 }, unit: ["sq ft", 200] },
   { name: "#15 Asphalt Saturated Roofing Felt (432 sq ft)", brand: "Mill Stock", category: "underlayment", price: 24.98, specs: { productType: "Felt #15", coverage: 432 }, unit: ["sq ft", 432], shippable: false },
   { name: "#30 Asphalt Saturated Roofing Felt (216 sq ft)", brand: "Mill Stock", category: "underlayment", price: 26.98, specs: { productType: "Felt #30", coverage: 216 }, unit: ["sq ft", 216], shippable: false },
-  { name: "Amerimax 10 ft White Aluminum Roof Drip Edge", brand: "Amerimax", category: "underlayment", price: 8.98, specs: { productType: "Drip Edge" }, unit: ["ft", 10], shippable: false },
 
   // ── Miter Saws ──────────────────────────────────────────
   { name: "DeWalt 12 in Double-Bevel Sliding Compound Miter Saw", brand: "DeWalt", model: "DWS780", category: "miter-saws", price: 599, specs: { bladeSize: "12 in", bevel: "Dual Bevel", sliding: true, power: "Corded" } },
@@ -352,4 +345,138 @@ export const PRODUCTS: ProductSeed[] = [
   { name: "Werner 28 ft Fiberglass Extension Ladder, Type IA (300 lb)", brand: "Werner", category: "ladders", price: 399, specs: { ladderType: "Extension Ladder", height: 28, material: "Fiberglass", duty: "Type IA (300 lb)" }, shippable: false },
   { name: "Little Giant Velocity 22 ft Multi-Position Ladder, Type IA (300 lb)", brand: "Little Giant", category: "ladders", price: 299, specs: { ladderType: "Multi-Position", height: 22, material: "Aluminum", duty: "Type IA (300 lb)" } },
   { name: "Franklin 6 ft Fiberglass Step Ladder, Type II (225 lb)", brand: "Franklin", category: "ladders", price: 79.99, specs: { ladderType: "Step Ladder", height: 6, material: "Fiberglass", duty: "Type II (225 lb)" }, only: ["harbor-freight"] },
+
+  // ── Panels & Load Centers ───────────────────────────────
+  { name: "Square D Homeline 100 Amp 20-Space Main Breaker Load Center", brand: "Square D", category: "load-centers", price: 129, specs: { panelLine: "Homeline", amperage: 100, spaces: 20, mainType: "Main Breaker", location: "Indoor" } },
+  { name: "Square D Homeline 200 Amp 40-Space Main Breaker Load Center", brand: "Square D", category: "load-centers", price: 269, specs: { panelLine: "Homeline", amperage: 200, spaces: 40, mainType: "Main Breaker", location: "Indoor" } },
+  { name: "Square D QO 200 Amp 40-Space Main Breaker Load Center", brand: "Square D", category: "load-centers", price: 449, specs: { panelLine: "QO", amperage: 200, spaces: 40, mainType: "Main Breaker", location: "Indoor" } },
+  { name: "Square D Homeline 125 Amp 8-Space Main Lug Outdoor Load Center", brand: "Square D", category: "load-centers", price: 59, specs: { panelLine: "Homeline", amperage: 125, spaces: 8, mainType: "Main Lug", location: "Outdoor" } },
+  { name: "Eaton BR 200 Amp 40-Space Main Breaker Load Center", brand: "Eaton", category: "load-centers", price: 239, specs: { panelLine: "BR", amperage: 200, spaces: 40, mainType: "Main Breaker", location: "Indoor" } },
+  { name: "Eaton BR 125 Amp 12-Space Main Lug Load Center", brand: "Eaton", category: "load-centers", price: 69, specs: { panelLine: "BR", amperage: 125, spaces: 12, mainType: "Main Lug", location: "Indoor" } },
+  { name: "Siemens 200 Amp 40-Space Main Breaker Load Center", brand: "Siemens", category: "load-centers", price: 249, specs: { panelLine: "Siemens QP", amperage: 200, spaces: 40, mainType: "Main Breaker", location: "Indoor" } },
+
+  // ── Meter Sockets & Mains ───────────────────────────────
+  { name: "Milbank 200 Amp Ringless Overhead/Underground Meter Socket", brand: "Milbank", category: "meters", price: 89, specs: { meterType: "Meter Socket", amperage: 200, ring: "Ringless", feed: "Overhead/Underground" } },
+  { name: "Milbank 100 Amp Ring-Type Meter Socket", brand: "Milbank", category: "meters", price: 59, specs: { meterType: "Meter Socket", amperage: 100, ring: "Ring Type", feed: "Overhead/Underground" } },
+  { name: "Eaton 200 Amp Ringless Meter Main Combination", brand: "Eaton", category: "meters", price: 399, specs: { meterType: "Meter Main Combo", amperage: 200, ring: "Ringless", feed: "Overhead/Underground" } },
+  { name: "Square D Homeline 200 Amp Underground Meter Main Combination", brand: "Square D", category: "meters", price: 429, specs: { meterType: "Meter Main Combo", amperage: 200, ring: "Ringless", feed: "Underground" } },
+  { name: "Siemens 200 Amp Meter Main Combination", brand: "Siemens", category: "meters", price: 379, specs: { meterType: "Meter Main Combo", amperage: 200, ring: "Ringless", feed: "Overhead/Underground" } },
+  { name: "Siemens 50 Amp Temporary Power Outlet Panel", brand: "Siemens", category: "meters", price: 219, specs: { meterType: "Temporary Power Outlet", amperage: 50, ring: "Ringless", feed: "Overhead" } },
+
+  // ── Electrical Boxes ────────────────────────────────────
+  { name: "Carlon 1-Gang 18 cu in New Work PVC Electrical Box", brand: "Carlon", category: "electrical-boxes", price: 0.78, specs: { boxType: "1-Gang", work: "New Work", material: "PVC", volume: 18, fanRated: false } },
+  { name: "Carlon 2-Gang 32 cu in New Work PVC Electrical Box", brand: "Carlon", category: "electrical-boxes", price: 1.48, specs: { boxType: "2-Gang", work: "New Work", material: "PVC", volume: 32, fanRated: false } },
+  { name: "Carlon 3-Gang 53 cu in New Work PVC Electrical Box", brand: "Carlon", category: "electrical-boxes", price: 3.98, specs: { boxType: "3-Gang", work: "New Work", material: "PVC", volume: 53, fanRated: false } },
+  { name: "Carlon 1-Gang 20 cu in Old Work PVC Electrical Box", brand: "Carlon", category: "electrical-boxes", price: 1.98, specs: { boxType: "1-Gang", work: "Old Work", material: "PVC", volume: 20, fanRated: false } },
+  { name: "Carlon 2-Gang 34 cu in Old Work PVC Electrical Box", brand: "Carlon", category: "electrical-boxes", price: 3.48, specs: { boxType: "2-Gang", work: "Old Work", material: "PVC", volume: 34, fanRated: false } },
+  { name: "Allied Moulded 1-Gang 22.5 cu in Fiberglass New Work Box", brand: "Allied Moulded", category: "electrical-boxes", price: 2.98, specs: { boxType: "1-Gang", work: "New Work", material: "Fiberglass", volume: 22.5, fanRated: false } },
+  { name: "Carlon 4 in Round 20.3 cu in Old Work Fan-Rated Ceiling Box", brand: "Carlon", category: "electrical-boxes", price: 7.98, specs: { boxType: "Round Ceiling", work: "Old Work", material: "PVC", volume: 20.3, fanRated: true } },
+  { name: "RACO 4 in Square 2-1/8 in Deep Metal Electrical Box", brand: "RACO", category: "electrical-boxes", price: 3.48, specs: { boxType: "4 in Square", work: "New Work", material: "Metal", volume: 30.3, fanRated: false } },
+
+  // ── Conduit & Fittings ──────────────────────────────────
+  { name: "Allied Tube 1/2 in x 10 ft EMT Conduit", brand: "Allied Tube", category: "conduit", price: 7.98, specs: { conduitType: "EMT", productType: "Conduit", size: "1/2 in", length: 10 }, unit: ["ft", 10], shippable: false },
+  { name: "Allied Tube 3/4 in x 10 ft EMT Conduit", brand: "Allied Tube", category: "conduit", price: 12.48, specs: { conduitType: "EMT", productType: "Conduit", size: "3/4 in", length: 10 }, unit: ["ft", 10], shippable: false },
+  { name: "Cantex 1/2 in x 10 ft Schedule 40 PVC Conduit", brand: "Cantex", category: "conduit", price: 3.98, specs: { conduitType: "PVC Sch 40", productType: "Conduit", size: "1/2 in", length: 10 }, unit: ["ft", 10], shippable: false },
+  { name: "Cantex 3/4 in x 10 ft Schedule 40 PVC Conduit", brand: "Cantex", category: "conduit", price: 5.48, specs: { conduitType: "PVC Sch 40", productType: "Conduit", size: "3/4 in", length: 10 }, unit: ["ft", 10], shippable: false },
+  { name: "Cantex 1 in x 10 ft Schedule 80 PVC Conduit", brand: "Cantex", category: "conduit", price: 13.98, specs: { conduitType: "PVC Sch 80", productType: "Conduit", size: "1 in", length: 10 }, unit: ["ft", 10], shippable: false },
+  { name: "Southwire 1/2 in x 100 ft Reduced-Wall Flexible Aluminum Conduit", brand: "Southwire", category: "conduit", price: 64.98, specs: { conduitType: "Flexible (FMC)", productType: "Conduit", size: "1/2 in", length: 100 }, unit: ["ft", 100] },
+  { name: "Southwire 3/4 in x 25 ft Liquidtight Flexible Conduit", brand: "Southwire", category: "conduit", price: 39.98, specs: { conduitType: "Liquidtight", productType: "Conduit", size: "3/4 in", length: 25 }, unit: ["ft", 25] },
+  { name: "Halex 1/2 in EMT Set-Screw Connector (25-Pack)", brand: "Halex", category: "conduit", price: 12.98, specs: { conduitType: "EMT", productType: "Connector", size: "1/2 in" }, unit: ["each", 25] },
+  { name: "Halex 1/2 in EMT Set-Screw Coupling (25-Pack)", brand: "Halex", category: "conduit", price: 11.98, specs: { conduitType: "EMT", productType: "Coupling", size: "1/2 in" }, unit: ["each", 25] },
+  { name: "Halex 3/4 in EMT 1-Hole Strap (25-Pack)", brand: "Halex", category: "conduit", price: 7.48, specs: { conduitType: "EMT", productType: "Strap", size: "3/4 in" }, unit: ["each", 25] },
+
+  // ── More pressure-treated lumber ────────────────────────
+  lumber("6x6", 8, 34.98, "Southern Yellow Pine", "#2 & Better", true),
+  lumber("2x8", 12, 19.98, "Southern Yellow Pine", "#2 & Better", true),
+  lumber("2x10", 12, 27.98, "Southern Yellow Pine", "#2 & Better", true),
+  { name: "2x4 x 8 ft Pressure-Treated Above Ground Southern Yellow Pine Lumber", brand: "Mill Stock", category: "pressure-treated-lumber", price: 5.98, specs: { nominalSize: "2x4", length: 8, rating: "Above Ground", species: "Southern Yellow Pine" }, unit: ["lin ft", 8], shippable: false },
+  { name: "5/4 in x 6 in x 12 ft Pressure-Treated Deck Board", brand: "Mill Stock", category: "pressure-treated-lumber", price: 12.98, specs: { nominalSize: "5/4x6 Deck Board", length: 12, rating: "Above Ground", species: "Southern Yellow Pine" }, unit: ["lin ft", 12], shippable: false },
+  { name: "5/4 in x 6 in x 16 ft Pressure-Treated Deck Board", brand: "Mill Stock", category: "pressure-treated-lumber", price: 17.48, specs: { nominalSize: "5/4x6 Deck Board", length: 16, rating: "Above Ground", species: "Southern Yellow Pine" }, unit: ["lin ft", 16], shippable: false },
+
+  // ── Framing Connectors ──────────────────────────────────
+  { name: "Simpson Strong-Tie 2x6 Face-Mount Joist Hanger", brand: "Simpson Strong-Tie", model: "LUS26", category: "framing-connectors", price: 1.68, specs: { connectorType: "Joist Hanger", fits: "2x6", finish: "G90 Galvanized" } },
+  { name: "Simpson Strong-Tie 2x8 Face-Mount Joist Hanger", brand: "Simpson Strong-Tie", model: "LUS28", category: "framing-connectors", price: 2.28, specs: { connectorType: "Joist Hanger", fits: "2x8", finish: "G90 Galvanized" } },
+  { name: "Simpson Strong-Tie 2x10 Face-Mount Joist Hanger", brand: "Simpson Strong-Tie", model: "LUS210", category: "framing-connectors", price: 2.68, specs: { connectorType: "Joist Hanger", fits: "2x10", finish: "G90 Galvanized" } },
+  { name: "Simpson Strong-Tie 2x6 ZMAX Face-Mount Joist Hanger", brand: "Simpson Strong-Tie", model: "LUS26Z", category: "framing-connectors", price: 2.68, specs: { connectorType: "Joist Hanger", fits: "2x6", finish: "ZMAX / G185" } },
+  { name: "USP 2x6 Face-Mount Joist Hanger", brand: "USP", category: "framing-connectors", price: 1.48, specs: { connectorType: "Joist Hanger", fits: "2x6", finish: "G90 Galvanized" }, exclude: ["home-depot"] },
+  { name: "Simpson Strong-Tie Hurricane Tie", brand: "Simpson Strong-Tie", model: "H2.5A", category: "framing-connectors", price: 0.98, specs: { connectorType: "Hurricane Tie", fits: "2x4", finish: "G90 Galvanized" } },
+  { name: "Simpson Strong-Tie Framing Angle", brand: "Simpson Strong-Tie", model: "A35", category: "framing-connectors", price: 1.18, specs: { connectorType: "Angle", fits: "2x4", finish: "G90 Galvanized" } },
+  { name: "Simpson Strong-Tie 4x4 ZMAX Adjustable Post Base", brand: "Simpson Strong-Tie", model: "ABU44Z", category: "framing-connectors", price: 16.98, specs: { connectorType: "Post Base", fits: "4x4", finish: "ZMAX / G185" } },
+  { name: "Simpson Strong-Tie 6x6 ZMAX Adjustable Post Base", brand: "Simpson Strong-Tie", model: "ABU66Z", category: "framing-connectors", price: 27.98, specs: { connectorType: "Post Base", fits: "6x6", finish: "ZMAX / G185" } },
+
+  // ── Rebar & Mesh ────────────────────────────────────────
+  { name: "#3 (3/8 in) x 10 ft Steel Rebar", brand: "Masonry Stock", category: "rebar-mesh", price: 5.48, specs: { productType: "Rebar", size: "#3 (3/8 in)", length: 10 }, unit: ["ft", 10], shippable: false },
+  { name: "#4 (1/2 in) x 10 ft Steel Rebar", brand: "Masonry Stock", category: "rebar-mesh", price: 8.48, specs: { productType: "Rebar", size: "#4 (1/2 in)", length: 10 }, unit: ["ft", 10], shippable: false },
+  { name: "#4 (1/2 in) x 20 ft Steel Rebar", brand: "Masonry Stock", category: "rebar-mesh", price: 15.98, specs: { productType: "Rebar", size: "#4 (1/2 in)", length: 20 }, unit: ["ft", 20], shippable: false },
+  { name: "#5 (5/8 in) x 20 ft Steel Rebar", brand: "Masonry Stock", category: "rebar-mesh", price: 22.98, specs: { productType: "Rebar", size: "#5 (5/8 in)", length: 20 }, unit: ["ft", 20], shippable: false },
+  { name: "6x6 W1.4 Welded Wire Concrete Mesh Sheet, 42 in x 84 in", brand: "Masonry Stock", category: "rebar-mesh", price: 10.98, specs: { productType: "Wire Mesh", size: "6x6 W1.4" }, unit: ["sheet", 1], shippable: false },
+  { name: "16 Gauge Rebar Tie Wire, 3.5 lb Coil", brand: "Masonry Stock", category: "rebar-mesh", price: 9.98, specs: { productType: "Tie Wire", size: "16 Gauge" } },
+  { name: "2 in Plastic Rebar Chairs (25-Pack)", brand: "Masonry Stock", category: "rebar-mesh", price: 7.98, specs: { productType: "Rebar Chair", size: "2 in" }, unit: ["each", 25] },
+
+  // ── Flashing & Drip Edge ────────────────────────────────
+  { name: "Amerimax 10 ft White Aluminum Roof Drip Edge", brand: "Amerimax", category: "flashing", price: 8.98, specs: { productType: "Drip Edge", material: "Aluminum", color: "White" }, unit: ["ft", 10], shippable: false },
+  { name: "Amerimax 10 ft Brown Aluminum Roof Drip Edge", brand: "Amerimax", category: "flashing", price: 8.98, specs: { productType: "Drip Edge", material: "Aluminum", color: "Brown" }, unit: ["ft", 10], shippable: false },
+  { name: "Amerimax 10 ft Galvanized Steel Roof Drip Edge", brand: "Amerimax", category: "flashing", price: 6.98, specs: { productType: "Drip Edge", material: "Galvanized Steel", color: "Mill Finish" }, unit: ["ft", 10], shippable: false },
+  { name: "Amerimax 5 in x 7 in Aluminum Step Flashing (100-Pack)", brand: "Amerimax", category: "flashing", price: 39.98, specs: { productType: "Step Flashing", material: "Aluminum", color: "Mill Finish" }, unit: ["each", 100] },
+  { name: "Amerimax 14 in x 50 ft Aluminum Roll Valley Flashing", brand: "Amerimax", category: "flashing", price: 44.98, specs: { productType: "Roll Flashing", material: "Aluminum", color: "Mill Finish" }, unit: ["ft", 50] },
+  { name: "Oatey 1-1/2 in to 3 in No-Calk Roof Pipe Boot Flashing", brand: "Oatey", category: "flashing", price: 14.98, specs: { productType: "Pipe Boot", material: "Rubber & Aluminum", color: "Black" } },
+
+  // ── Plumbing: PEX-A ─────────────────────────────────────
+  { name: "Uponor AquaPEX 1/2 in x 100 ft White PEX-A Pipe", brand: "Uponor", category: "pex-a", price: 62.98, specs: { productType: "Pipe", size: "1/2 in", length: 100, color: "White" }, unit: ["ft", 100] },
+  { name: "Uponor AquaPEX 1/2 in x 100 ft Red PEX-A Pipe", brand: "Uponor", category: "pex-a", price: 64.98, specs: { productType: "Pipe", size: "1/2 in", length: 100, color: "Red" }, unit: ["ft", 100] },
+  { name: "Uponor AquaPEX 3/4 in x 100 ft White PEX-A Pipe", brand: "Uponor", category: "pex-a", price: 109.98, specs: { productType: "Pipe", size: "3/4 in", length: 100, color: "White" }, unit: ["ft", 100] },
+  { name: "Uponor ProPEX 1/2 in Expansion Rings (25-Pack)", brand: "Uponor", category: "pex-a", price: 10.98, specs: { productType: "Expansion Ring", size: "1/2 in" }, unit: ["each", 25] },
+  { name: "Uponor ProPEX 1/2 in EP 90° Elbow", brand: "Uponor", category: "pex-a", price: 3.48, specs: { productType: "90° Elbow", size: "1/2 in" } },
+  { name: "Uponor ProPEX 1/2 in EP Tee", brand: "Uponor", category: "pex-a", price: 4.48, specs: { productType: "Tee", size: "1/2 in" } },
+  { name: "Uponor ProPEX 3/4 in EP Coupling", brand: "Uponor", category: "pex-a", price: 3.98, specs: { productType: "Coupling", size: "3/4 in" } },
+  { name: "Uponor ProPEX 1/2 in PEX x 1/2 in FNPT Brass Adapter", brand: "Uponor", category: "pex-a", price: 7.98, specs: { productType: "Adapter", size: "1/2 in" } },
+
+  // ── Plumbing: PEX-B ─────────────────────────────────────
+  { name: "SharkBite 1/2 in x 100 ft Red PEX-B Pipe", brand: "SharkBite", category: "pex-b", price: 42.98, specs: { productType: "Pipe", size: "1/2 in", length: 100, color: "Red" }, unit: ["ft", 100] },
+  { name: "SharkBite 1/2 in x 100 ft Blue PEX-B Pipe", brand: "SharkBite", category: "pex-b", price: 42.98, specs: { productType: "Pipe", size: "1/2 in", length: 100, color: "Blue" }, unit: ["ft", 100] },
+  { name: "SharkBite 3/4 in x 100 ft Blue PEX-B Pipe", brand: "SharkBite", category: "pex-b", price: 69.98, specs: { productType: "Pipe", size: "3/4 in", length: 100, color: "Blue" }, unit: ["ft", 100] },
+  { name: "SharkBite 1 in x 100 ft White PEX-B Pipe", brand: "SharkBite", category: "pex-b", price: 109.98, specs: { productType: "Pipe", size: "1 in", length: 100, color: "White" }, unit: ["ft", 100] },
+  { name: "Apollo 3/4 in x 100 ft Red PEX-B Pipe", brand: "Apollo", category: "pex-b", price: 64.98, specs: { productType: "Pipe", size: "3/4 in", length: 100, color: "Red" }, unit: ["ft", 100], exclude: ["lowes"] },
+  { name: "Apollo 1/2 in PEX Crimp Brass 90° Elbow (10-Pack)", brand: "Apollo", category: "pex-b", price: 12.98, specs: { productType: "90° Elbow", size: "1/2 in" }, unit: ["each", 10], exclude: ["lowes"] },
+  { name: "Apollo 1/2 in PEX-B Brass Crimp Tee (5-Pack)", brand: "Apollo", category: "pex-b", price: 11.98, specs: { productType: "Tee", size: "1/2 in" }, unit: ["each", 5], exclude: ["lowes"] },
+  { name: "Apollo 3/4 in PEX Crimp Brass Coupling (5-Pack)", brand: "Apollo", category: "pex-b", price: 9.98, specs: { productType: "Coupling", size: "3/4 in" }, unit: ["each", 5], exclude: ["lowes"] },
+  { name: "Apollo 1/2 in Copper PEX Crimp Rings (50-Pack)", brand: "Apollo", category: "pex-b", price: 11.98, specs: { productType: "Crimp Ring", size: "1/2 in" }, unit: ["each", 50], exclude: ["lowes"] },
+  { name: "Apollo 1/2 in Stainless Steel PEX Cinch Clamps (50-Pack)", brand: "Apollo", category: "pex-b", price: 12.98, specs: { productType: "Cinch Clamp", size: "1/2 in" }, unit: ["each", 50], exclude: ["lowes"] },
+
+  // ── Plumbing: Copper ────────────────────────────────────
+  { name: "Mueller 1/2 in x 10 ft Copper Type M Pipe", brand: "Mueller", category: "copper", price: 26.98, specs: { productType: "Pipe", size: "1/2 in", copperType: "Type M", length: 10 }, unit: ["ft", 10], shippable: false },
+  { name: "Mueller 1/2 in x 10 ft Copper Type L Pipe", brand: "Mueller", category: "copper", price: 34.98, specs: { productType: "Pipe", size: "1/2 in", copperType: "Type L", length: 10 }, unit: ["ft", 10], shippable: false },
+  { name: "Mueller 3/4 in x 10 ft Copper Type M Pipe", brand: "Mueller", category: "copper", price: 44.98, specs: { productType: "Pipe", size: "3/4 in", copperType: "Type M", length: 10 }, unit: ["ft", 10], shippable: false },
+  { name: "Mueller 3/4 in x 10 ft Copper Type L Pipe", brand: "Mueller", category: "copper", price: 62.98, specs: { productType: "Pipe", size: "3/4 in", copperType: "Type L", length: 10 }, unit: ["ft", 10], shippable: false },
+  { name: "Mueller 1/2 in Copper 90° Sweat Elbow (10-Pack)", brand: "Mueller", category: "copper", price: 15.98, specs: { productType: "90° Elbow", size: "1/2 in" }, unit: ["each", 10] },
+  { name: "Mueller 1/2 in Copper Sweat Coupling (10-Pack)", brand: "Mueller", category: "copper", price: 9.98, specs: { productType: "Coupling", size: "1/2 in" }, unit: ["each", 10] },
+  { name: "Mueller 1/2 in Copper Sweat Tee (5-Pack)", brand: "Mueller", category: "copper", price: 12.98, specs: { productType: "Tee", size: "1/2 in" }, unit: ["each", 5] },
+  { name: "Oatey Safe-Flo Lead-Free Wire Solder, 1/2 lb", brand: "Oatey", category: "copper", price: 24.98, specs: { productType: "Solder & Flux" } },
+
+  // ── Plumbing: PVC ───────────────────────────────────────
+  { name: "Charlotte Pipe 1/2 in x 10 ft PVC Schedule 40 Pipe", brand: "Charlotte Pipe", category: "pvc", price: 4.48, specs: { productType: "Pipe", size: "1/2 in", schedule: "Sch 40", length: 10 }, unit: ["ft", 10], shippable: false },
+  { name: "Charlotte Pipe 3/4 in x 10 ft PVC Schedule 40 Pipe", brand: "Charlotte Pipe", category: "pvc", price: 5.98, specs: { productType: "Pipe", size: "3/4 in", schedule: "Sch 40", length: 10 }, unit: ["ft", 10], shippable: false },
+  { name: "Charlotte Pipe 1 in x 10 ft PVC Schedule 40 Pipe", brand: "Charlotte Pipe", category: "pvc", price: 8.48, specs: { productType: "Pipe", size: "1 in", schedule: "Sch 40", length: 10 }, unit: ["ft", 10], shippable: false },
+  { name: "Charlotte Pipe 2 in x 10 ft PVC DWV Foam Core Pipe", brand: "Charlotte Pipe", category: "pvc", price: 16.98, specs: { productType: "Pipe", size: "2 in", schedule: "DWV", length: 10 }, unit: ["ft", 10], shippable: false },
+  { name: "Charlotte Pipe 1/2 in PVC Sch 40 90° Elbow (10-Pack)", brand: "Charlotte Pipe", category: "pvc", price: 5.48, specs: { productType: "90° Elbow", size: "1/2 in", schedule: "Sch 40" }, unit: ["each", 10] },
+  { name: "Charlotte Pipe 3/4 in PVC Sch 40 Tee (10-Pack)", brand: "Charlotte Pipe", category: "pvc", price: 9.98, specs: { productType: "Tee", size: "3/4 in", schedule: "Sch 40" }, unit: ["each", 10] },
+  { name: "Charlotte Pipe 1/2 in PVC Sch 40 Coupling (10-Pack)", brand: "Charlotte Pipe", category: "pvc", price: 3.98, specs: { productType: "Coupling", size: "1/2 in", schedule: "Sch 40" }, unit: ["each", 10] },
+  { name: "Oatey PVC Cement and Purple Primer Combo Pack", brand: "Oatey", category: "pvc", price: 12.98, specs: { productType: "Cement & Primer" } },
+
+  // ── Plumbing: CPVC ──────────────────────────────────────
+  { name: "Charlotte Pipe 1/2 in x 10 ft CPVC CTS Pipe", brand: "Charlotte Pipe", category: "cpvc", price: 7.48, specs: { productType: "Pipe", size: "1/2 in", length: 10 }, unit: ["ft", 10], shippable: false },
+  { name: "Charlotte Pipe 3/4 in x 10 ft CPVC CTS Pipe", brand: "Charlotte Pipe", category: "cpvc", price: 11.98, specs: { productType: "Pipe", size: "3/4 in", length: 10 }, unit: ["ft", 10], shippable: false },
+  { name: "NIBCO 1/2 in CPVC CTS 90° Elbow (10-Pack)", brand: "NIBCO", category: "cpvc", price: 5.98, specs: { productType: "90° Elbow", size: "1/2 in" }, unit: ["each", 10] },
+  { name: "NIBCO 1/2 in CPVC CTS Coupling (10-Pack)", brand: "NIBCO", category: "cpvc", price: 4.48, specs: { productType: "Coupling", size: "1/2 in" }, unit: ["each", 10] },
+  { name: "NIBCO 3/4 in CPVC CTS Tee (5-Pack)", brand: "NIBCO", category: "cpvc", price: 6.98, specs: { productType: "Tee", size: "3/4 in" }, unit: ["each", 5] },
+  { name: "Oatey FlowGuard Gold CPVC Cement, 8 oz", brand: "Oatey", category: "cpvc", price: 10.98, specs: { productType: "Cement & Primer" } },
+
+  // ── Plumbing: Push-to-Connect ───────────────────────────
+  { name: "SharkBite 1/2 in Push-to-Connect Brass 90° Elbow", brand: "SharkBite", category: "push-to-connect", price: 9.98, specs: { productType: "90° Elbow", size: "1/2 in" } },
+  { name: "SharkBite 3/4 in Push-to-Connect Brass 90° Elbow", brand: "SharkBite", category: "push-to-connect", price: 14.98, specs: { productType: "90° Elbow", size: "3/4 in" } },
+  { name: "SharkBite 1/2 in Push-to-Connect Brass Coupling", brand: "SharkBite", category: "push-to-connect", price: 8.48, specs: { productType: "Coupling", size: "1/2 in" } },
+  { name: "SharkBite 3/4 in Push-to-Connect Brass Tee", brand: "SharkBite", category: "push-to-connect", price: 19.98, specs: { productType: "Tee", size: "3/4 in" } },
+  { name: "SharkBite 3/4 in Push-to-Connect Ball Valve", brand: "SharkBite", category: "push-to-connect", price: 29.98, specs: { productType: "Ball Valve", size: "3/4 in" } },
+  { name: "SharkBite 1/2 in x 3/8 in Compression Angle Stop Valve", brand: "SharkBite", category: "push-to-connect", price: 14.98, specs: { productType: "Stop Valve", size: "1/2 in" } },
+  { name: "SharkBite 1/2 in Push x 1/2 in FNPT Brass Adapter", brand: "SharkBite", category: "push-to-connect", price: 9.48, specs: { productType: "Adapter", size: "1/2 in" } },
 ];

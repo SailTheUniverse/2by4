@@ -1,14 +1,17 @@
 @import "tailwindcss";
 
-/* Palette: warm job-site neutrals, tape-measure yellow accent, green for savings. */
+/* Palette: cool lavender neutrals, violet brand accent, green reserved for savings. */
 @theme {
-  --color-paper: #f7f6f3;
+  --color-paper: #f7f5fc;
   --color-surface: #ffffff;
-  --color-ink: #1c1917;
-  --color-muted: #6b6560;
-  --color-line: #e7e4df;
-  --color-accent: #f2b705;
-  --color-accent-soft: #fdf3cf;
+  --color-ink: #1d1530;
+  --color-muted: #676178;
+  --color-line: #e6e1f0;
+  --color-accent: #6d28d9;
+  --color-accent-hover: #5b21b6;
+  --color-accent-soft: #efe8fd;
+  --color-accent-ink: #4c1d95;
+  --color-accent-bright: #c4b5fd;
   --color-save: #157a3c;
   --color-save-soft: #e3f4e8;
   --color-warn: #b45309;

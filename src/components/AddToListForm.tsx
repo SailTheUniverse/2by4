@@ -21,12 +21,12 @@ export function AddToListForm({ productId, unitHint }: { productId: string; unit
           min={1}
           max={9999}
           defaultValue={1}
-          className="tabular w-20 rounded-lg border border-line px-3 py-2 text-sm outline-none focus:border-ink"
+          className="tabular w-20 rounded-lg border border-line px-3 py-2 text-sm outline-none focus:border-accent"
         />
         <button
           type="submit"
           disabled={pending}
-          className="flex-1 rounded-lg border border-ink px-3 py-2 text-sm font-semibold hover:bg-ink hover:text-white disabled:opacity-60"
+          className="flex-1 rounded-lg border border-accent px-3 py-2 text-sm font-semibold text-accent hover:bg-accent hover:text-white disabled:opacity-60"
         >
           {pending ? "Adding…" : "Add to project list"}
         </button>

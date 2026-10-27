@@ -16,7 +16,7 @@ export function CopyLinkButton({ path }: { path: string }) {
           window.prompt("Copy this link", new URL(path, window.location.origin).toString());
         }
       }}
-      className="rounded-lg border border-line bg-surface px-3 py-2 text-sm font-medium hover:border-ink"
+      className="rounded-lg border border-line bg-surface px-3 py-2 text-sm font-medium hover:border-accent"
     >
       {copied ? "Link copied ✓" : "Copy share link"}
     </button>

@@ -77,7 +77,7 @@ async function CategoryView({ params, searchParams }: PageProps<"/c/[slug]">) {
             <li key={c.id}>
               <Link
                 href={`/c/${c.slug}`}
-                className="block rounded-full border border-line bg-surface px-4 py-2 text-sm font-medium hover:border-ink"
+                className="block rounded-full border border-line bg-surface px-4 py-2 text-sm font-medium hover:border-accent"
               >
                 {c.name} <span className="tabular text-muted">{c._count.products}</span>
               </Link>

@@ -71,7 +71,7 @@ export function FacetSidebar({
           <PriceInput name="min" placeholder="Min" defaultValue={filters.min} />
           <span className="text-muted">–</span>
           <PriceInput name="max" placeholder="Max" defaultValue={filters.max} />
-          <button type="submit" className="rounded-md border border-line px-2 py-1.5 text-sm hover:border-ink">
+          <button type="submit" className="rounded-md border border-line px-2 py-1.5 text-sm hover:border-accent">
             Go
           </button>
         </Form>
@@ -91,7 +91,7 @@ function PriceInput({ name, placeholder, defaultValue }: { name: string; placeho
       placeholder={placeholder}
       defaultValue={defaultValue ?? ""}
       aria-label={`${placeholder} price`}
-      className="tabular w-full min-w-0 rounded-md border border-line px-2 py-1.5 text-sm outline-none focus:border-ink"
+      className="tabular w-full min-w-0 rounded-md border border-line px-2 py-1.5 text-sm outline-none focus:border-accent"
     />
   );
 }
@@ -99,7 +99,7 @@ function PriceInput({ name, placeholder, defaultValue }: { name: string; placeho
 function Check({ checked }: { checked: boolean }) {
   return (
     <span
-      className={`flex size-4 shrink-0 items-center justify-center rounded border ${checked ? "border-ink bg-ink text-white" : "border-ink/30 bg-surface"}`}
+      className={`flex size-4 shrink-0 items-center justify-center rounded border ${checked ? "border-accent bg-accent text-white" : "border-ink/30 bg-surface"}`}
       aria-hidden
     >
       {checked && (

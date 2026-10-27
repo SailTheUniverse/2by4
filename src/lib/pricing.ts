@@ -43,7 +43,12 @@ export interface PriceSummary {
   best: RetailerPrice | null;
   bestTotal: number | null;
   highestTotal: number | null;
-  /** Difference between the most and least expensive retailer */
+  /** The priciest retailer's item price (before shipping), for "save X%" */
+  highestPrice: number | null;
+  /**
+   * Item-price gap between the cheapest and priciest retailer. Shipping is left
+   * out so a $1 part doesn't look "92% cheaper" just because one store ships it.
+   */
   savings: number;
   inStockCount: number;
 }
@@ -95,12 +100,20 @@ export function summarize(
   const bestTotal = totals.length ? Math.min(...totals) : null;
   const highestTotal = totals.length ? Math.max(...totals) : null;
 
+  // Each retailer's lowest in-stock item price, ignoring shipping
+  const itemPrices = retailers
+    .map((r) => Math.min(...[r.store, r.online].filter((o) => o?.inStock).map((o) => o!.price)))
+    .filter(Number.isFinite);
+  const lowestPrice = itemPrices.length ? Math.min(...itemPrices) : null;
+  const highestPrice = itemPrices.length ? Math.max(...itemPrices) : null;
+
   return {
     retailers,
     best: retailers[0]?.best?.inStock ? retailers[0] : null,
     bestTotal,
     highestTotal,
-    savings: bestTotal !== null && highestTotal !== null ? Math.round((highestTotal - bestTotal) * 100) / 100 : 0,
+    highestPrice,
+    savings: lowestPrice !== null && highestPrice !== null ? Math.round((highestPrice - lowestPrice) * 100) / 100 : 0,
     inStockCount: totals.length,
   };
 }

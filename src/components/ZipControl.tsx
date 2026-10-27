@@ -7,7 +7,7 @@ export async function ZipControl() {
 
   return (
     <details className="group relative">
-      <summary className="flex cursor-pointer list-none items-center gap-1.5 rounded-lg border border-line px-3 py-2 text-sm hover:border-ink">
+      <summary className="flex cursor-pointer list-none items-center gap-1.5 rounded-lg border border-line px-3 py-2 text-sm hover:border-accent">
         <PinIcon />
         {zip ? (
           <span>
@@ -34,9 +34,9 @@ export async function ZipControl() {
               pattern="\d{5}"
               maxLength={5}
               placeholder="e.g. 80202"
-              className="tabular w-full rounded-lg border border-line px-3 py-2 text-sm outline-none focus:border-ink"
+              className="tabular w-full rounded-lg border border-line px-3 py-2 text-sm outline-none focus:border-accent"
             />
-            <button type="submit" className="rounded-lg bg-accent px-3 text-sm font-semibold text-ink hover:brightness-95">
+            <button type="submit" className="rounded-lg bg-accent px-3 text-sm font-semibold text-white hover:bg-accent-hover">
               Save
             </button>
           </div>

@@ -117,7 +117,7 @@ async function ProductView({ params }: PageProps<"/p/[slug]">) {
                 href={prices.best.url}
                 target="_blank"
                 rel="noopener noreferrer nofollow"
-                className="mt-4 block rounded-lg bg-accent px-4 py-2.5 text-center font-semibold text-ink hover:brightness-95"
+                className="mt-4 block rounded-lg bg-accent px-4 py-2.5 text-center font-semibold text-white hover:bg-accent-hover"
               >
                 Go to {prices.best.retailer.name} ↗
               </a>

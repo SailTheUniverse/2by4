@@ -14,11 +14,11 @@ export function ListView({ list, isMine, hasZip }: { list: PricedList; isMine: b
   return (
     <div className="space-y-8">
       {!isMine && (
-        <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl bg-accent-soft px-4 py-3 text-sm">
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl bg-accent-soft px-4 py-3 text-sm text-accent-ink">
           <p>You&apos;re viewing a shared list. Changes you make here change it for everyone with the link.</p>
           <form action={copyList}>
             <input type="hidden" name="listId" value={list.id} />
-            <button type="submit" className="rounded-lg bg-ink px-3 py-1.5 font-medium text-white">
+            <button type="submit" className="rounded-lg bg-accent px-3 py-1.5 font-medium text-white hover:bg-accent-hover">
               Copy to my list
             </button>
           </form>
@@ -38,7 +38,7 @@ export function ListView({ list, isMine, hasZip }: { list: PricedList; isMine: b
               name="name"
               defaultValue={list.name}
               maxLength={80}
-              className="-ml-1 rounded-md border border-transparent bg-transparent px-1 text-2xl font-bold tracking-tight outline-none hover:border-line focus:border-ink sm:text-3xl"
+              className="-ml-1 rounded-md border border-transparent bg-transparent px-1 text-2xl font-bold tracking-tight outline-none hover:border-line focus:border-accent sm:text-3xl"
             />
             <button type="submit" className="hidden text-sm text-muted underline group-focus-within:inline">
               Save
@@ -49,7 +49,7 @@ export function ListView({ list, isMine, hasZip }: { list: PricedList; isMine: b
           <CopyLinkButton path={`/lists/${list.id}`} />
           {isMine && (
             <form action={startNewList}>
-              <button type="submit" className="rounded-lg border border-line bg-surface px-3 py-2 text-sm font-medium hover:border-ink">
+              <button type="submit" className="rounded-lg border border-line bg-surface px-3 py-2 text-sm font-medium hover:border-accent">
                 New list
               </button>
             </form>
@@ -106,9 +106,9 @@ export function ListView({ list, isMine, hasZip }: { list: PricedList; isMine: b
                           min={1}
                           max={9999}
                           defaultValue={l.quantity}
-                          className="tabular w-20 rounded-md border border-line px-2 py-1.5 text-sm outline-none focus:border-ink"
+                          className="tabular w-20 rounded-md border border-line px-2 py-1.5 text-sm outline-none focus:border-accent"
                         />
-                        <button type="submit" className="rounded-md border border-line px-2 py-1.5 text-sm hover:border-ink">
+                        <button type="submit" className="rounded-md border border-line px-2 py-1.5 text-sm hover:border-accent">
                           Update
                         </button>
                       </form>
@@ -271,7 +271,7 @@ export function EmptyList() {
             <input type="hidden" name="template" value={t.key} />
             <h3 className="font-semibold">{t.name}</h3>
             <p className="mt-1 flex-1 text-sm text-muted">{t.description}</p>
-            <button type="submit" className="mt-3 self-start rounded-lg bg-accent px-3 py-1.5 text-sm font-semibold text-ink hover:brightness-95">
+            <button type="submit" className="mt-3 self-start rounded-lg bg-accent px-3 py-1.5 text-sm font-semibold text-white hover:bg-accent-hover">
               Load {t.items.length} items
             </button>
           </form>

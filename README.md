@@ -48,11 +48,12 @@ through Vercel. Deploys come straight from GitHub.
    to the project for all environments. Keep the default variable names (`DATABASE_URL`, `DATABASE_URL_UNPOOLED`).
 4. Optional, keeps sample prices fresh: **Settings → Environment Variables**, add `CRON_SECRET` with a long random value.
 5. **Deployments → ⋯ → Redeploy.** The build runs migrations and, on an empty database, seeds the sample catalog
-   (adds about 2 minutes to the first build). Later deploys keep existing data.
+   (adds 2–3 minutes to the first build). Later deploys keep existing data.
 
-`vercel.json` schedules `/api/cron/refresh-prices` every 3 days. It refreshes prices and trims history older than
-120 days, which keeps the database well under Neon's free storage limit (the seed uses about 150 MB). Every push to
-`draft-mvp` redeploys.
+`vercel.json` schedules `/api/cron/refresh-prices` weekly (Mondays). It refreshes prices and trims history older than
+120 days, which keeps the database at roughly 130–150 MB, well under Neon's free 0.5 GB. Every push to `draft-mvp`
+redeploys. If the seed data changed (`prisma/seed/*`), the deploy reseeds the catalog automatically. Project lists are
+kept and re-linked to products by slug.
 
 ## How it works
 
